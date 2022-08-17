@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <!-- diseño componente -->
+            <div class="flash">
+                
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            function getStatus(status){
+                if (status === "ok") return "flash-accept"
+                if (status === "error") return "flash-error"
+                return "flash-warning"
+            }
+
+            function flashMessage(mensaje, status, sec){
+                var flash = document.querySelector(".flash")
+                var backgroud = getStatus(status)
+                flash.classList.add("flash-show")
+                flash.classList.add(backgroud)
+                flash.innerHTML = mensaje
+                setTimeout(()=>{
+                    flash.classList.remove("flash-show")
+                    flash.classList.remove(backgroud)
+                    flash.innerHTML = ""
+                },sec)
+            }
+
+            flashMessage("El producto ya existe en la base de datos","err",3000)
+
+        })
+    </script>
+</body>
+</html>
