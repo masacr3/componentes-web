@@ -1,0 +1,70 @@
+html, body{
+    box-sizing:border-box;
+    background-color: #0d1117;
+    font-size: 14px;
+    color: #c9d1d9;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+}
+
+.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box{
+    width: 500px;
+    height: 500px;
+    border: 1px solid grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* propiedades del componente */
+.border{
+    border: 1px solid grey;
+    border-radius: 6px;
+    padding: 16px;
+}
+
+.menu-titulo{
+    margin-top: 0;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+ul{
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; 
+}
+
+.menu-item{
+    margin-bottom: 4px;
+    padding: 6px 12px;
+    color: #8b949e;
+    border-radius: 6px;
+}
+
+menu-item:hover{
+    background-color: #161b22;
+}
+
+.mb-2{
+    margin-bottom: 8px;
+}
+
+.selected{
+    background-color: darkslateblue;
+    color: white;
+}
