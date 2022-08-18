@@ -11,8 +11,7 @@
     <div class="container">
         <div class="boxx">
             <ul>
-                <li class="head">
-                    <!-- <div class="cod">COD</div> -->
+                <!-- <li class="head">
                     <div class="articulo">ARTICULO</div>
                     <div class="cant">CANT</div>
                     <div class="precio">PRECIO</div>
@@ -20,6 +19,17 @@
                     <div class="actions">ACTIONS</div>
                 </li>
                 <li class="vacio">El carrito se encuentra vacio</li>
+                -->
+                <li>
+                    <div class="cant">23
+                        <div class="mute">cantidad</div>
+                    </div>
+                    <div class="cuerpo">
+                        <div class="top">La serenisima</div>
+                        <div class="down">Fideo moñito 500g</div>
+                    </div>
+                    <div class="subtotal">23000</div>
+                </li>
             </ul>
            
         </div>
@@ -85,8 +95,6 @@
 
             }
 
-            
-
             document.querySelector("ul").addEventListener("click",e=>{
                 if (e.target.parentNode.tagName == "LI" && e.target.parentNode.firstChild.innerHTML !== undefined){
                     document.querySelectorAll("li").forEach(item =>{
@@ -107,7 +115,7 @@
                 }
             }
 
-            cargardatos()
+            //cargardatos()
 
         })
     </script>
