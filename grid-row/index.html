@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="boxx">
+            <ul>
+                <li class="head">
+                    <!-- <div class="cod">COD</div> -->
+                    <div class="articulo">ARTICULO</div>
+                    <div class="cant">CANT</div>
+                    <div class="precio">PRECIO</div>
+                    <div class="subtotal">SUBTOTAL</div>
+                    <div class="actions">ACTIONS</div>
+                </li>
+            </ul>
+           
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            function agregarli(cod, articulo, cant, precio){
+                var ul = document.querySelector("ul")
+
+                var li = document.createElement("LI")
+                // var _cod = document.createElement("DIV")
+                var _articulo = document.createElement("DIV")
+                var _cant = document.createElement("DIV")
+                var _precio = document.createElement("DIV")
+                var _subtotal = document.createElement("DIV")
+                var _actions = document.createElement("DIV")
+                var _btn = document.createElement("button")
+
+                //agregamos las clases correspondientes
+                // _cod.classList.add("cod")
+                // _cod.classList.add("t-cod")
+                _articulo.classList.add("articulo")
+                _articulo.classList.add("t-art")
+                _cant.classList.add("cant")
+                _precio.classList.add("precio")
+                _subtotal.classList.add("subtotal") 
+                _actions.classList.add("actions")
+                _btn.classList.add("btn")
+                _btn.classList.add("btn"+cod)
+                
+
+                // _cod.innerHTML = cod
+                _articulo.innerHTML = articulo
+                _cant.innerHTML = cant
+                _precio.innerHTML = precio
+                _subtotal.innerHTML = precio
+                _btn.innerHTML = "Eliminar"
+
+                //agregamos bton de borrar
+                _actions.appendChild(_btn)
+
+                //agregamos los nodos al padre UL
+                // li.appendChild(_cod)
+                li.appendChild(_articulo)
+                li.appendChild(_cant)
+                li.appendChild(_precio)
+                li.appendChild(_subtotal)
+                li.appendChild(_actions)
+
+                ul.appendChild(li)
+
+                document.querySelector(".btn"+cod).addEventListener("click", e=>{
+                    // var currentLi = e.target.parentNode.parentNode
+                    // currentLi.parentNode.removeChild(currentLi)
+                    ul.removeChild(li)
+                    //var lis = document.querySelectorAll("li")
+                    // if(lis.length === 1){
+                    //     var nuevali = document.createElement("li")
+                    //     nuevali.innerHTML = "El carrito se encuentra vacio"
+                    //     ul.appendChild(nuevali)
+                    // }
+                })
+
+            }
+
+            
+
+            document.querySelector("ul").addEventListener("click",e=>{
+                if (e.target.parentNode.tagName == "LI" && e.target.parentNode.firstChild.innerHTML !== undefined){
+                    document.querySelectorAll("li").forEach(item =>{
+                        item.classList.remove("selected")
+                    })
+                    e.target.parentNode.classList.add("selected")
+                }
+            })
+
+            function cargardatos(){
+                var cods = ["12312125125","231212511512","2134215121232","214142415151","24125661214"]
+                var articulos = ["Fideo luchetti moñito 500g ahreee11111111111111","Jostick playstation 4 original guerra","Leche la serenisima 3%","Fiambre 190 mortadela","Arroz ala 500g"]
+                var cants = ["1","1","1","1","1"]
+                var precios = ["190","23000","190","150","150"]
+                
+                for(let i=0; i<5; i++){
+                    agregarli(cods[i],articulos[i],cants[i],precios[i],precios[i])
+                }
+            }
+
+            cargardatos()
+
+        })
+    </script>
+</body>
+</html>
