@@ -19,6 +19,7 @@
                     <div class="subtotal">SUBTOTAL</div>
                     <div class="actions">ACTIONS</div>
                 </li>
+                <li class="vacio">El carrito se encuentra vacio</li>
             </ul>
            
         </div>
@@ -27,6 +28,11 @@
         document.addEventListener('DOMContentLoaded', () => {
             function agregarli(cod, articulo, cant, precio){
                 var ul = document.querySelector("ul")
+
+                //verifica si esta vacio el carrito
+                if ( document.querySelectorAll("li").length == 2 && document.querySelectorAll("li")[1].innerHTML === "El carrito se encuentra vacio"){
+                    ul.removeChild(document.querySelectorAll("li")[1])
+                }
 
                 var li = document.createElement("LI")
                 // var _cod = document.createElement("DIV")
@@ -38,8 +44,6 @@
                 var _btn = document.createElement("button")
 
                 //agregamos las clases correspondientes
-                // _cod.classList.add("cod")
-                // _cod.classList.add("t-cod")
                 _articulo.classList.add("articulo")
                 _articulo.classList.add("t-art")
                 _cant.classList.add("cant")
@@ -60,8 +64,6 @@
                 //agregamos bton de borrar
                 _actions.appendChild(_btn)
 
-                //agregamos los nodos al padre UL
-                // li.appendChild(_cod)
                 li.appendChild(_articulo)
                 li.appendChild(_cant)
                 li.appendChild(_precio)
@@ -71,15 +73,14 @@
                 ul.appendChild(li)
 
                 document.querySelector(".btn"+cod).addEventListener("click", e=>{
-                    // var currentLi = e.target.parentNode.parentNode
-                    // currentLi.parentNode.removeChild(currentLi)
                     ul.removeChild(li)
-                    //var lis = document.querySelectorAll("li")
-                    // if(lis.length === 1){
-                    //     var nuevali = document.createElement("li")
-                    //     nuevali.innerHTML = "El carrito se encuentra vacio"
-                    //     ul.appendChild(nuevali)
-                    // }
+                    var lis = document.querySelectorAll("li")
+                    if(lis.length === 1){
+                        var nuevali = document.createElement("li")
+                        nuevali.innerHTML = "El carrito se encuentra vacio"
+                        nuevali.classList.add("vacio")
+                        ul.appendChild(nuevali)
+                    }
                 })
 
             }

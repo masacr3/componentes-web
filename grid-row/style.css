@@ -37,9 +37,13 @@ ul{
     color: #151515;
 }
 
-.cod, .articulo, .cant, .precio, .subtotal, .actions{
+.cod, .articulo, .cant, .precio, .subtotal, .actions, .vacio{
     text-align: center;
     padding: 10px;
+}
+
+.vacio{
+    justify-content: center;
 }
 
 .cod{
