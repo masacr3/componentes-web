@@ -11,32 +11,48 @@
     <div class="container">
         <div class="boxx">
             <ul>
-                <!-- <li class="head">
-                    <div class="articulo">ARTICULO</div>
-                    <div class="cant">CANT</div>
-                    <div class="precio">PRECIO</div>
-                    <div class="subtotal">SUBTOTAL</div>
-                    <div class="actions">ACTIONS</div>
-                </li>
-                <li class="vacio">El carrito se encuentra vacio</li>
-                -->
-                <li>
-                    <div class="cant">23
-                        <div class="mute">cantidad</div>
-                    </div>
-                    <div class="cuerpo">
-                        <div class="top">La serenisima</div>
-                        <div class="down">Fideo moñito 500g</div>
-                    </div>
-                    <div class="subtotal">23000</div>
-                </li>
             </ul>
            
         </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            function agregarli(cod, articulo, cant, precio){
+
+            function actualizarProducto(item, quitar){
+                var precio = item.getAttribute("data-precio")
+                var cantValue = item.children.item(0).children.item(0).children.item(0)
+                cantValue.innerHTML = parseInt(cantValue.innerHTML) + (quitar ? -1 : 1)
+                if (cantValue.innerHTML === "0"){
+                    item.parentNode.removeChild(item)
+                    return
+                }
+                var cantSubtotal = item.children.item(0).children.item(2).children.item(0)
+                cantSubtotal.innerHTML = parseInt(precio) * (quitar ? -1 : 1) +  parseInt(cantSubtotal.innerHTML)
+                
+            }
+
+            function estaCodBarras(cod){
+                var lis = document.querySelectorAll("li")
+                if (lis === 0) return true
+
+                var ok = false
+                lis.forEach(item =>{
+                    var codigoBarras = item.getAttribute("data-cod-barras")
+                    if(codigoBarras === cod){
+                        ok = true
+                        actualizarProducto(item, false)
+                    }
+                })
+                return ok
+            }
+
+            function agregarli(cod, marca, descripcion, cant, precio){
+                
+                if ( estaCodBarras (cod) ){
+                    console.log("actualizo producto")
+                    return
+                }
+                
                 var ul = document.querySelector("ul")
 
                 //verifica si esta vacio el carrito
@@ -45,77 +61,130 @@
                 }
 
                 var li = document.createElement("LI")
-                // var _cod = document.createElement("DIV")
-                var _articulo = document.createElement("DIV")
+
+                li.setAttribute("data-cod-barras", cod)
+                li.setAttribute("data-precio",precio)
+
+                var _producto = document.createElement("DIV")
                 var _cant = document.createElement("DIV")
-                var _precio = document.createElement("DIV")
+                var _cantValue = document.createElement("DIV")
+                var placeholderCant = document.createElement("DIV")
+                var _articulo = document.createElement("DIV")
+                var _marca = document.createElement("DIV")
+                var _descripcion = document.createElement("DIV")
                 var _subtotal = document.createElement("DIV")
-                var _actions = document.createElement("DIV")
-                var _btn = document.createElement("button")
+                var _cantSubtotal = document.createElement("DIV")
+                var placeholderSubtotal = document.createElement("DIV")
+                var borrar = document.createElement("DIV")
+                var titulo = document.createElement("DIV")
+                var ok = document.createElement("DIV")
+                var cancel = document.createElement("DIV")
 
                 //agregamos las clases correspondientes
-                _articulo.classList.add("articulo")
-                _articulo.classList.add("t-art")
+                _producto.classList.add("producto")
                 _cant.classList.add("cant")
-                _precio.classList.add("precio")
-                _subtotal.classList.add("subtotal") 
-                _actions.classList.add("actions")
-                _btn.classList.add("btn")
-                _btn.classList.add("btn"+cod)
+                _cantValue.classList.add("value")
+                placeholderCant.classList.add("mute")
+                _articulo.classList.add("articulo")
+                _marca.classList.add("marca")
+                _descripcion.classList.add("descripcion")
+                _descripcion.classList.add("truncado-articulos")
+                _subtotal.classList.add("subtotal")
+                _cantSubtotal.classList.add("value")
+                placeholderSubtotal.classList.add("mute")
+                borrar.classList.add("borrar")
+                borrar.classList.add("no-show")
+                titulo.classList.add("titulo")
+                ok.classList.add("ok")
+                cancel.classList.add("cancel")
                 
+                //agregamos el texto correspondiente
+                _cantValue.innerHTML = cant
+                placeholderCant.innerHTML = "cantidad"
+                _marca.innerHTML = marca
+                _descripcion.innerHTML = descripcion
+                _cantSubtotal.innerHTML = precio
+                placeholderSubtotal.innerHTML = "subtotal"
+                titulo.innerHTML = "Borrar articulo?"
+                ok.innerHTML = "Ok"
+                cancel.innerHTML = "Cancelar"
 
-                // _cod.innerHTML = cod
-                _articulo.innerHTML = articulo
-                _cant.innerHTML = cant
-                _precio.innerHTML = precio
-                _subtotal.innerHTML = precio
-                _btn.innerHTML = "Eliminar"
 
-                //agregamos bton de borrar
-                _actions.appendChild(_btn)
+                //agregamos dependencia entre objetos
+                _cant.append(_cantValue)
+                _cant.appendChild(placeholderCant)
+                _articulo.appendChild(_marca)
+                _articulo.appendChild(_descripcion)
+                _subtotal.appendChild(_cantSubtotal)
+                _subtotal.appendChild(placeholderSubtotal)
+                _producto.appendChild(_cant)
+                _producto.appendChild(_articulo)
+                _producto.appendChild(_subtotal)
+                borrar.appendChild(titulo)
+                borrar.appendChild(ok)
+                borrar.appendChild(cancel)
 
-                li.appendChild(_articulo)
-                li.appendChild(_cant)
-                li.appendChild(_precio)
-                li.appendChild(_subtotal)
-                li.appendChild(_actions)
+                li.appendChild(_producto)
+                li.appendChild(borrar)
 
                 ul.appendChild(li)
-
-                document.querySelector(".btn"+cod).addEventListener("click", e=>{
-                    ul.removeChild(li)
-                    var lis = document.querySelectorAll("li")
-                    if(lis.length === 1){
-                        var nuevali = document.createElement("li")
-                        nuevali.innerHTML = "El carrito se encuentra vacio"
-                        nuevali.classList.add("vacio")
-                        ul.appendChild(nuevali)
-                    }
-                })
 
             }
 
             document.querySelector("ul").addEventListener("click",e=>{
-                if (e.target.parentNode.tagName == "LI" && e.target.parentNode.firstChild.innerHTML !== undefined){
-                    document.querySelectorAll("li").forEach(item =>{
-                        item.classList.remove("selected")
-                    })
-                    e.target.parentNode.classList.add("selected")
+
+                var apretoBorrar = e.target.innerHTML === "Ok"
+                var apretoCancelar = e.target.innerHTML === "Cancelar"
+                var apretoCantidad = e.target.parentNode.className === "cant" || e.target.className === "cant"
+                
+                console.log("apreto cantidad",apretoCantidad)
+
+                var padre = e.target.parentNode
+               //busco el Li subiendo por los nodos
+                while( padre.tagName !== "LI"){
+                    padre = padre.parentNode
                 }
+                
+                if (apretoCantidad){
+                    actualizarProducto(padre, true)
+                    return
+                }
+
+                if (apretoBorrar){
+                    padre.parentNode.removeChild(padre)
+                    return
+                }
+
+                if (apretoCancelar){
+                    var producto = padre.children.item(0)
+                    var borrar = padre.children.item(1)
+                    borrar.classList.add("no-show")
+                    producto.classList.remove("no-show")
+                    return
+
+                }
+
+                var producto = padre.children.item(0)
+                var borrar = padre.children.item(1)
+
+                producto.classList.add("no-show")
+                borrar.classList.remove("no-show")
+
             })
 
             function cargardatos(){
-                var cods = ["12312125125","231212511512","2134215121232","214142415151","24125661214"]
-                var articulos = ["Fideo luchetti moñito 500g ahreee11111111111111","Jostick playstation 4 original guerra","Leche la serenisima 3%","Fiambre 190 mortadela","Arroz ala 500g"]
+                var cods = ["123","234","123","1425","512"]
+                var marca = ["Luchetti","Sony","Luchetti","190","Ala"]
+                var descripcion = ["Fideo moñito 500g","Jostick playstation 4 original guerra","Fideo moñito 500g","Fiambre mortadela","Arroz 500g"]
                 var cants = ["1","1","1","1","1"]
-                var precios = ["190","23000","190","150","150"]
+                var precios = ["190","23000","190","190","150"]
                 
                 for(let i=0; i<5; i++){
-                    agregarli(cods[i],articulos[i],cants[i],precios[i],precios[i])
+                    agregarli(cods[i],marca[i], descripcion[i], cants[i], precios[i])
                 }
             }
 
-            //cargardatos()
+            cargardatos()
 
         })
     </script>
