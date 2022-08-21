@@ -4,7 +4,7 @@ html, body{
     font-size: 18px;
     color: #6c6c6c;
     user-select: none;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    font-family: "helvetica";
 }
 
 .container{
@@ -15,20 +15,140 @@ html, body{
     align-items: center;
 }
 
+
+h2{
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.op{
+    margin-bottom: 20px;
+    margin-left: 20%;
+}
+
+.menu{
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 6px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+
+    border: 1px solid #6c6c6c;
+}
+
+.row{
+    height: 475px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:space-around;
+}
+
+.col1{
+    width: 220px;
+}
+
+.col2{
+    width: 850px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-around;
+}
+
 .box{
-    width: 700px;
-    height: 500px;
+    width: 1200px;
+    height: 650px;
     border: 1px solid grey;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content:space-around;
     align-items: center;
     border: 1px solid grey;
 }
 
+.pinta-grid{
+    width: 422px;
+    height: 427px;
+    border-radius: 6px;
+
+    border: 1px solid #6c6c6c;
+
+}
+
 ul{
     list-style: none;
+    height: 360px;
     padding: 0;
+    margin: 0;
 }
+
+/********************/
+.form__group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 50%;
+  }
+  
+  .form__field {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #9b9b9b;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #fff;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+  }
+  .form__field::placeholder {
+    color: transparent;
+  }
+  .form__field:placeholder-shown ~ .form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+  }
+  
+  .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #9b9b9b;
+  }
+  
+  .form__field:focus {
+    padding-bottom: 6px;
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, #11998e, #38ef7d);
+    border-image-slice: 1;
+  }
+  .form__field:focus ~ .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #11998e;
+    font-weight: 500;
+  }
+  
+  /* reset input */
+  .form__field:required, .form__field:invalid {
+    box-shadow: none;
+  }
+
+
+
+
+
+/************************/
 
 /* proto 1 */
 li{
@@ -169,67 +289,44 @@ li:last-child{
     height: 0;
 }
 
+/************ tota ****************/
 
-/*
-.cod, .articulo, .cant, .precio, .subtotal, .actions, .vacio{
+.total{
+    width: 200px;
+    height: 100px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+    font-family: 'roboto';
+
+    color: whitesmoke;
+
+}
+
+.total .total-titulo, .total .total-value{
+    width: 100%;
+    font-size: 30px;
     text-align: center;
-    padding: 10px;
 }
 
-.vacio{
-    justify-content: center;
-}
-
-.cod{
-    width: 50px;
-}
-
-.articulo{
-    width: 300px;
-}
-
-.cant{
-    flex-shrink: 0;
-    width: 50px;
-}
-
-.precio{
-    width: 80px;
-}
-
-.subtotal{
-    width: 100px;
-}
-
-.actions{
-    width: 80px;
-}
-
-
-.t-cod{
-    
-    width: 50px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-
-
-.selected{
-    background-color: #6c6c6c;
-    font-weight: 700;
-    color: #151515;
-}
-
-.btn{
-    border: 1px solid #E6B0AA;
+::-webkit-scrollbar {
+    width: 10px;
+  }
+ ::-webkit-scrollbar-track {
     background-color: transparent;
-    color: #E6B0AA;
-    padding: 8px;
-}
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #121111c8;
+    border-radius: 10px;
+  }
 
-.btn:hover{
-    border: 1px solid #E74C3C;
-    color: #E74C3C;
-} */
+  .scrolling{
+    width: 450px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
