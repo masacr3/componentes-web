@@ -1,0 +1,20 @@
+.total{
+    width: 200px;
+    height: 100px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+    font-family: 'roboto';
+
+    color: #8e5fd9;
+
+}
+
+.total .total-titulo, .total .total-value{
+    width: 100%;
+    font-size: 30px;
+    text-align: center;
+}

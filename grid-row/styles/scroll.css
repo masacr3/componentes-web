@@ -1,0 +1,17 @@
+::-webkit-scrollbar {
+    width: 10px;
+  }
+ ::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #121111c8;
+    border-radius: 10px;
+  }
+
+  .scrolling{
+    width: 450px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
