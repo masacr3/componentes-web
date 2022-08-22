@@ -12,10 +12,24 @@
         <div class="box">
             <div class="col1">
                 <div class="menu">
-                    <h2>Menu</h2>
-                    <div class="op">Ventas</div>
-                    <div class="op">Cargar datos</div>
-                    <div class="op">Actualizar datos</div>
+                    <div class="mask">
+                        <div class="mask-container">
+                            <img src="./carrito-de-supermercado-off.png" alt="" data-menu="carrito">    
+                            <img src="./carrito-de-supermercado.png" alt="" data-menu="carritoOn">
+                        </div>
+                    </div>
+                    <div class="mask">
+                        <div class="mask-container">
+                            <img src="./agregar-paquete-off.png" alt="" data-menu="carrito">    
+                            <img src="./agregar-paquete.png" alt="" data-menu="carritoOn">
+                        </div>
+                    </div>
+                    <div class="mask">
+                        <div class="mask-container">
+                            <img src="./lista-de-verificacion-off.png" alt="" data-menu="actualizar">    
+                            <img src="./lista-de-verificacion.png" alt="" data-menu="carritoOn">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col2">
@@ -28,7 +42,7 @@
                     <ul></ul>
                 </div>
                 <div class="total">
-                    <img src="./money-bag.png" alt="">
+                    <img src="./dolar.png" alt="">
                     <div class="total-value"></div>
                 </div>
             </div>
@@ -37,6 +51,24 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             calcularTotalCarrito()
+
+            function elegirMenu(){
+                var imgs = document.querySelectorAll("img")
+                imgs.forEach(item=>{
+                    // item.addEventListener("click", e=>{
+                    //     console.log(e.target.getAttribute("data-menu"))
+                    // })
+                    item.addEventListener("click",e=>{
+                        if(item.getAttribute("data-menu") === "carrito"){
+                            console.log("clickeo carrito")
+                            item.classList.add("move-left")
+                            item.parentElement.children.item(1).classList.add("move-left")
+                        }
+                    })
+                })
+            }
+
+            elegirMenu()
 
             function calcularTotalCarrito(){
                 var lis = document.querySelectorAll("li")
@@ -124,7 +156,7 @@
                 _descripcion.classList.add("truncado-articulos")
                 _subtotal.classList.add("subtotal")
                 _cantSubtotal.classList.add("value")
-                placeholderSubtotal.classList.add("mute")
+                placeholderSubtotal.classList.add("mute-der")
                 borrar.classList.add("borrar")
                 borrar.classList.add("no-show")
                 titulo.classList.add("titulo")
