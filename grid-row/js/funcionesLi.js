@@ -1,8 +1,8 @@
 function agregarli(cod, marca, descripcion, cant, precio){
-                
+
+
     if ( estaProducto (cod) ){
         actualizarProducto(cod, false)
-        console.log("actualizo producto")
         return
     }
     

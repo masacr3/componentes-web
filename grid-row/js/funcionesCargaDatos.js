@@ -1,11 +1,19 @@
 function cargardatos(){
-    var cods = ["123","234","123","1425","512","2323","123456"]
-    var marca = ["Luchetti","Sony","Luchetti","190","Ala","Toddy","Coca cola"]
-    var descripcion = ["Fideo moñito 500g","Jostick playstation 4 original guerra","Fideo moñito 500g","Fiambre mortadela","Arroz 500g","Chocolate 500g","2.25l"]
-    var cants = ["1","1","1","1","1","1","1"]
-    var precios = ["190","23000","190","190","150","200","350"]
+    const cods = ["7794000004917",
+                  "7613287850355",
+                  "7790697000522",
+                  "7798113301611",
+                  "7790697000522",
+                  "7798113301611",
+                  "7613287850355",
+                  "7790697000522",
+                  "7798113301611",
+                  "7790697000522",
+                ]
     
-    for(let i=0; i<6; i++){
-        agregarli(cods[i],marca[i], descripcion[i], cants[i], precios[i])
-    }
+    cods.forEach(codigo =>{
+        var {cod, marca, producto, descripcion, precio} = getProducto(codigo)
+        producto += " " + descripcion
+        agregarli(cod, marca, producto, "1", precio)
+    })
 }

@@ -49,4 +49,11 @@ function listaEventos(){
         borrar.classList.remove("no-show")
     
     })
+
+    document.querySelector("#codbarras").addEventListener("keypress", e=>{
+        if (e.key === "Enter"){
+            var content = document.querySelector("#codbarras").value
+            console.log(content)
+        }
+    })
 }

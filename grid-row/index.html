@@ -41,7 +41,7 @@
                 <div class="row">
                     <!-- listo -->
                     <div class="form__group field">
-                        <input type="input" class="form__field" placeholder="Name" name="name" id='name' autocomplete="off" required />
+                        <input type="input" class="form__field" placeholder="Name" name="name" id='codbarras' autocomplete="off" required />
                         <label for="name" class="form__label">Cod barras</label>
                     </div>
                     <ul></ul>
@@ -57,6 +57,7 @@
     <script src="./js/funcionesLi.js"></script>
     <script src="./js/funcionesMenu.js"></script>
     <script src="./js/funcionesCarrito.js"></script>
+    <script src="./js/serviceProduct.js"></script>
     <script src="./js/funcionesCargaDatos.js"></script>
     <script src="./js/eventos.js"></script>
     <script>
@@ -65,6 +66,7 @@
             elegirMenu()
             listaEventos()
             cargardatos()
+            calcularTotalCarrito()
         })
     </script>
 </body>

@@ -13,7 +13,7 @@ function calcularTotalCarrito(){
 
 function estaProducto(cod){
     var lis = document.querySelectorAll("li")
-    if (lis === 0) return true
+    if (lis.length === 0) return false
 
     var ok = false
     lis.forEach(item =>{
