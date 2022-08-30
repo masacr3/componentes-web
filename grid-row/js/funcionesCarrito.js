@@ -4,12 +4,15 @@
 function carritoTotal(){
     var lis = document.querySelectorAll("li")
 
-    var total = 0
 
-    lis.forEach(item =>{
-        var cantSubtotal = item.children.item(0).children.item(2).children.item(0)
-        total += parseInt(cantSubtotal.innerHTML)
-    })
+    var total = 0
+    if (! (lis.length === 1 && lis[0].getAttribute("data-cod-barras") === "0000") ){
+        lis.forEach(item =>{
+            var cantSubtotal = item.children.item(0).children.item(2).children.item(0)
+            total += parseInt(cantSubtotal.innerHTML)
+        })
+    }
+    
     document.querySelector(".total-value").innerHTML = "$ " + total
 }
 
@@ -54,7 +57,9 @@ function carritoActualizarProducto(cod, quitar){
 //pre no verifica si el elemento esta en el carrito
 //eso lo tendria q verificar otra funcion
 function carritoAgregarProducto(cod){
-    var producto = serviceApiProducto(cod)
+    var servicioApi = new ServicesApiProductos()
+    var producto = servicioApi.obtener(cod)
+    if (producto.cod === "0000") return;
 
     var ul = document.querySelector("ul")
 
@@ -143,3 +148,40 @@ function carritoAgregarProducto(cod){
     }
   
 }
+
+//wrappers
+
+function carritoAgregar(cod){
+
+    if ( carritoEstaProducto(cod) === true ){
+        carritoActualizarProducto(cod, false)
+    }
+    else{
+        var lis = document.querySelectorAll("li")
+        if( lis.length === 1 && lis[0].getAttribute("data-cod-barras") === "0000" ){
+            lis[0].remove()
+        }
+        carritoAgregarProducto(cod)
+    }
+    carritoTotal()
+}
+
+function carritoQuitar(cod){
+    if ( !carritoEstaProducto(cod) ) return;
+    
+    carritoActualizarProducto(cod, true)
+    var lis = document.querySelectorAll("li")
+    if( lis.length === 0 ){
+        var ul = document.querySelector("ul")
+        var li = document.createElement("li")
+
+        li.setAttribute("data-cod-barras", "0000")
+        li.classList.add("no-productos")
+        li.innerHTML = "No hay articulos en su carrito"
+
+        ul.appendChild(li)
+
+    }
+    carritoTotal()
+}
+

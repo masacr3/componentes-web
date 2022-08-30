@@ -164,6 +164,16 @@ li{
     border-image-slice: 1;
 }
 
+.no-productos{
+    display: flex;
+
+    height: 275px;
+    justify-content: center;
+    align-items: center;
+
+    color : #244256
+}
+
 .truncado-articulos{
     margin-top: 0;
     margin-bottom: 0;

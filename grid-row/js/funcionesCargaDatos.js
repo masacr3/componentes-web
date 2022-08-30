@@ -11,9 +11,7 @@ function cargardatos(){
                   "7790697000522",
                 ]
     
-    cods.forEach(codigo =>{
-        var {cod, marca, producto, descripcion, precio} = getProducto(codigo)
-        producto += " " + descripcion
-        agregarli(cod, marca, producto, "1", precio)
+    cods.forEach(codigoBarras =>{
+        carritoAgregar(codigoBarras)
     })
 }

@@ -4,8 +4,6 @@ function listaEventos(){
         var apretoBorrar = e.target.innerHTML === "Ok"
         var apretoCancelar = e.target.innerHTML === "Cancelar"
         var apretoCantidad = e.target.parentNode.className === "cant" || e.target.className === "cant"
-        
-        console.log("apreto cantidad",apretoCantidad)
     
         var padre = e.target.parentNode
        //busco el Li subiendo por los nodos
@@ -15,20 +13,32 @@ function listaEventos(){
         
         if (apretoCantidad){
             var cod = padre.getAttribute("data-cod-barras")
-            actualizarProducto(cod, true)
+            carritoQuitar(cod)
+
             if( document.querySelectorAll("li").length < 6 ){
                 document.querySelector("ul").classList.remove("scrolling")
             }
-            calcularTotalCarrito()
+            carritoTotal()
             return
         }
     
         if (apretoBorrar){
             padre.parentNode.removeChild(padre)
+            
             if( document.querySelectorAll("li").length < 6 ){
                 document.querySelector("ul").classList.remove("scrolling")
             }
-            calcularTotalCarrito()
+
+            var lis = document.querySelectorAll("li")
+            if( lis.length === 0 ){
+                var ul = document.querySelector("ul")
+                var li = document.createElement("li")
+                li.setAttribute("data-cod-barras", "0000")
+                li.classList.add("no-productos")
+                li.innerHTML = "No hay articulos en su carrito"
+                ul.appendChild(li)
+            }
+            carritoTotal()
             return
         }
     
@@ -37,7 +47,7 @@ function listaEventos(){
             var borrar = padre.children.item(1)
             borrar.classList.add("no-show")
             producto.classList.remove("no-show")
-            calcularTotalCarrito()
+            carritoTotal()
             return
     
         }
@@ -52,8 +62,24 @@ function listaEventos(){
 
     document.querySelector("#codbarras").addEventListener("keypress", e=>{
         if (e.key === "Enter"){
-            var content = document.querySelector("#codbarras").value
-            console.log(content)
+            var codbarras = document.querySelector("#codbarras")
+            carritoAgregar(codbarras.value)
+            carritoTotal()
+            codbarras.value = ""
         }
+    })
+
+    document.querySelectorAll("img").forEach(item=>{
+        item.addEventListener("click",e=>{
+            if(item.getAttribute("data-menu") === "carritoOn"){
+                console.log("clickeo carrito")
+            }
+            if(item.getAttribute("data-menu") === "agregarOn"){
+                console.log("clickeo agregar")
+            }
+            if(item.getAttribute("data-menu") === "actualizarOn"){
+                console.log("clickeo actualizar")
+            }
+        })
     })
 }
