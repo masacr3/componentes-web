@@ -1,7 +1,6 @@
-
 // package.action{}
 
-
+//calcula el total del carrito de compras
 function carritoTotal(){
     var lis = document.querySelectorAll("li")
 
@@ -12,9 +11,10 @@ function carritoTotal(){
         total += parseInt(cantSubtotal.innerHTML)
     })
     document.querySelector(".total-value").innerHTML = "$ " + total
-
 }
 
+
+//verifica si el articulo esta en el carrito
 function carritoEstaProducto(cod){
     var lis = document.querySelectorAll("li")
     if (lis.length === 0) return false
@@ -29,6 +29,9 @@ function carritoEstaProducto(cod){
     return ok
 }
 
+
+//modifica el articulo en el carrito
+// en el caso de quitar el elemento si la cantidad es 0 lo quita del carrito
 function carritoActualizarProducto(cod, quitar){
     var item = null
     document.querySelectorAll("li").forEach(it =>{
@@ -47,6 +50,9 @@ function carritoActualizarProducto(cod, quitar){
     
 }
 
+//agrega un elemento al carrito
+//pre no verifica si el elemento esta en el carrito
+//eso lo tendria q verificar otra funcion
 function carritoAgregarProducto(cod){
     var producto = serviceApiProducto(cod)
 
