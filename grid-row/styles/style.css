@@ -1,0 +1,199 @@
+html, body{
+    box-sizing:border-box;
+    background-color: #151515;
+    font-size: 18px;
+    color: #6c6c6c;
+    user-select: none;
+    font-family: "helvetica";
+}
+
+.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row{
+    height: 475px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:space-around;
+}
+
+.col1{
+    width: 220px;
+}
+
+.col2{
+    width: 850px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-around;
+}
+
+.box{
+    width: 1200px;
+    height: 650px;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    align-items: center;
+}
+
+ul{
+    list-style: none;
+    height: 360px;
+    padding: 0;
+    margin: 0;
+}
+
+/* proto 1 */
+li{
+    height: 70px;
+    width: 420px;
+    overflow: hidden;
+}
+
+.producto{
+    display: flex;
+    height: 100%;
+}
+
+.borrar{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cant{
+    color: #169dac;
+    width: 75px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.mute{
+    font-size: 12px;
+    color:#169dac;
+}
+
+.mute-der{
+    font-size: 12px;
+    color:#8e5fd9;
+}
+
+.articulo{
+    height: 100%;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #244256 ;
+}
+
+.descripcion{
+    width: 250px;
+    text-align: center;
+}
+
+div{
+    box-sizing: border-box;
+}
+
+
+.marca{
+    text-align: center;
+}
+
+.precio{
+    width: 150px;
+    text-align: center;
+}
+
+.subtotal{
+    width: 75px;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: #8e5fd9;
+}
+
+.titulo{
+    padding: 10px;
+    width: 100px;
+}
+
+.cant:hover{
+    color: chartreuse;
+}
+
+.cant:hover .mute{
+    color: chartreuse;
+}
+
+.ok:hover{
+    color: chartreuse;
+}
+
+.cancel:hover{
+    color: crimson;
+}
+
+/**************/
+
+
+li{
+    display: flex;
+    border: 1px solid transparent;
+    border-image: linear-gradient(to right, #169dac, #8e5fd9);
+    border-image-slice: 1;
+}
+
+.no-productos{
+    display: flex;
+
+    height: 275px;
+    justify-content: center;
+    align-items: center;
+
+    color : #244256
+}
+
+.truncado-articulos{
+    margin-top: 0;
+    margin-bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.selected{
+    background-color: #6c6c6c;
+    font-weight: 700;
+    color: #151515;
+}
+
+.no-show{
+    overflow: hidden;
+    width: 0;
+    height: 0;
+}
+
+/************ tota ****************/
+
+

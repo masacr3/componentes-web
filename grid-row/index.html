@@ -4,236 +4,73 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/inputs.css">
+    <link rel="stylesheet" href="./styles/totales.css">
+    <link rel="stylesheet" href="./styles/menu.css">
+    <link rel="stylesheet" href="./styles/scroll.css">
     <title>Document</title>
 </head>
 <body>
     <div class="container">
         <div class="box">
             <div class="col1">
+                <!-- listo -->
                 <div class="menu">
-                    <h2>Menu</h2>
-                    <div class="op">Ventas</div>
-                    <div class="op">Cargar datos</div>
-                    <div class="op">Actualizar datos</div>
+                    <div class="mask">
+                        <div class="mask-container">
+                            <img src="./img/carrito-de-supermercado-off.png" alt="" data-menu="carrito">    
+                            <img src="./img/carrito-de-supermercado.png" alt="" data-menu="carritoOn">
+                        </div>
+                    </div>
+                    <div class="mask">
+                        <div class="mask-container">
+                            <img src="./img/agregar-paquete-off.png" alt="" data-menu="agregar">    
+                            <img src="./img/agregar-paquete.png" alt="" data-menu="agregarOn">
+                        </div>
+                    </div>
+                    <div class="mask">
+                        <div class="mask-container">
+                            <img src="./img/lista-de-verificacion-off.png" alt="" data-menu="actualizar">    
+                            <img src="./img/lista-de-verificacion.png" alt="" data-menu="actualizarOn">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col2">
                 <div class="row">
-                    <!-- <img src="./codigo-de-barras.png" alt=""> -->
-                    <div class="form__group field">
-                        <input type="input" class="form__field" placeholder="Name" name="name" id='name' autocomplete="off" required />
+                    <!-- listo -->
+                    <!-- <div class="form__group field">
+                        <input type="input" class="form__field" placeholder="Name" name="name" id='codbarras' autocomplete="off" required />
                         <label for="name" class="form__label">Cod barras</label>
+                    </div> -->
+                    <div class="input">
+                        <img src="./img/codigo-de-barras.png" class="img-cod">
+                        <input type="text" id="codbarras" placeholder="Cod barras...">    
                     </div>
-                    <ul></ul>
+                    <ul>
+                        <li class="no-productos" data-cod-barras="0000">
+                            No hay articulos en su carrito
+                        </li>
+                    </ul>
                 </div>
+                <!-- listo -->
                 <div class="total">
-                    <img src="./money-bag.png" alt="">
+                    <img src="./img/dolar.png" alt="">
                     <div class="total-value"></div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="./js/serviceProduct.js"></script>
+    <script src="./js/eventos.js"></script>
+    <script src="./js/funcionesCarrito.js"></script>
+    <script src="./js/funcionesCargaDatos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            calcularTotalCarrito()
-
-            function calcularTotalCarrito(){
-                var lis = document.querySelectorAll("li")
-
-                var total = 0
-
-                lis.forEach(item =>{
-                    var cantSubtotal = item.children.item(0).children.item(2).children.item(0)
-                    total += parseInt(cantSubtotal.innerHTML)
-                })
-                document.querySelector(".total-value").innerHTML = "$ " + total
-
-            }
-
-            function actualizarProducto(item, quitar){
-                var precio = item.getAttribute("data-precio")
-                var cantValue = item.children.item(0).children.item(0).children.item(0)
-                cantValue.innerHTML = parseInt(cantValue.innerHTML) + (quitar ? -1 : 1)
-                if (cantValue.innerHTML === "0"){
-                    item.parentNode.removeChild(item)
-                    return
-                }
-                var cantSubtotal = item.children.item(0).children.item(2).children.item(0)
-                cantSubtotal.innerHTML = parseInt(precio) * (quitar ? -1 : 1) +  parseInt(cantSubtotal.innerHTML)
-                
-            }
-
-            function estaCodBarras(cod){
-                var lis = document.querySelectorAll("li")
-                if (lis === 0) return true
-
-                var ok = false
-                lis.forEach(item =>{
-                    var codigoBarras = item.getAttribute("data-cod-barras")
-                    if(codigoBarras === cod){
-                        ok = true
-                        actualizarProducto(item, false)
-                    }
-                })
-                return ok
-            }
-
-            function agregarli(cod, marca, descripcion, cant, precio){
-                
-                if ( estaCodBarras (cod) ){
-                    console.log("actualizo producto")
-                    return
-                }
-                
-                var ul = document.querySelector("ul")
-
-                //verifica si esta vacio el carrito
-                if ( document.querySelectorAll("li").length == 2 && document.querySelectorAll("li")[1].innerHTML === "El carrito se encuentra vacio"){
-                    ul.removeChild(document.querySelectorAll("li")[1])
-                }
-
-                var li = document.createElement("LI")
-
-                li.setAttribute("data-cod-barras", cod)
-                li.setAttribute("data-precio",precio)
-
-                var _producto = document.createElement("DIV")
-                var _cant = document.createElement("DIV")
-                var _cantValue = document.createElement("DIV")
-                var placeholderCant = document.createElement("DIV")
-                var _articulo = document.createElement("DIV")
-                var _marca = document.createElement("DIV")
-                var _descripcion = document.createElement("DIV")
-                var _subtotal = document.createElement("DIV")
-                var _cantSubtotal = document.createElement("DIV")
-                var placeholderSubtotal = document.createElement("DIV")
-                var borrar = document.createElement("DIV")
-                var titulo = document.createElement("DIV")
-                var ok = document.createElement("DIV")
-                var cancel = document.createElement("DIV")
-
-                //agregamos las clases correspondientes
-                _producto.classList.add("producto")
-                _cant.classList.add("cant")
-                _cantValue.classList.add("value")
-                placeholderCant.classList.add("mute")
-                _articulo.classList.add("articulo")
-                _marca.classList.add("marca")
-                _descripcion.classList.add("descripcion")
-                _descripcion.classList.add("truncado-articulos")
-                _subtotal.classList.add("subtotal")
-                _cantSubtotal.classList.add("value")
-                placeholderSubtotal.classList.add("mute")
-                borrar.classList.add("borrar")
-                borrar.classList.add("no-show")
-                titulo.classList.add("titulo")
-                ok.classList.add("ok")
-                cancel.classList.add("cancel")
-                
-                //agregamos el texto correspondiente
-                _cantValue.innerHTML = cant
-                placeholderCant.innerHTML = "cantidad"
-                _marca.innerHTML = marca
-                _descripcion.innerHTML = descripcion
-                _cantSubtotal.innerHTML = precio
-                placeholderSubtotal.innerHTML = "subtotal"
-                titulo.innerHTML = "Borrar articulo?"
-                ok.innerHTML = "Ok"
-                cancel.innerHTML = "Cancelar"
-
-
-                //agregamos dependencia entre objetos
-                _cant.append(_cantValue)
-                _cant.appendChild(placeholderCant)
-                _articulo.appendChild(_marca)
-                _articulo.appendChild(_descripcion)
-                _subtotal.appendChild(_cantSubtotal)
-                _subtotal.appendChild(placeholderSubtotal)
-                _producto.appendChild(_cant)
-                _producto.appendChild(_articulo)
-                _producto.appendChild(_subtotal)
-                borrar.appendChild(titulo)
-                borrar.appendChild(ok)
-                borrar.appendChild(cancel)
-
-                li.appendChild(_producto)
-                li.appendChild(borrar)
-
-                ul.appendChild(li)
-
-                calcularTotalCarrito()
-
-                if ( document.querySelectorAll("li").length > 5 ){
-                    ul.classList.add("scrolling")
-                }
-
-            }
-
-            document.querySelector("ul").addEventListener("click",e=>{
-
-                var apretoBorrar = e.target.innerHTML === "Ok"
-                var apretoCancelar = e.target.innerHTML === "Cancelar"
-                var apretoCantidad = e.target.parentNode.className === "cant" || e.target.className === "cant"
-                
-                console.log("apreto cantidad",apretoCantidad)
-
-                var padre = e.target.parentNode
-               //busco el Li subiendo por los nodos
-                while( padre.tagName !== "LI"){
-                    padre = padre.parentNode
-                }
-                
-                if (apretoCantidad){
-                    actualizarProducto(padre, true)
-                    if( document.querySelectorAll("li").length < 6 ){
-                        document.querySelector("ul").classList.remove("scrolling")
-                    }
-                    calcularTotalCarrito()
-                    return
-                }
-
-                if (apretoBorrar){
-                    padre.parentNode.removeChild(padre)
-                    if( document.querySelectorAll("li").length < 6 ){
-                        document.querySelector("ul").classList.remove("scrolling")
-                    }
-                    calcularTotalCarrito()
-                    return
-                }
-
-                if (apretoCancelar){
-                    var producto = padre.children.item(0)
-                    var borrar = padre.children.item(1)
-                    borrar.classList.add("no-show")
-                    producto.classList.remove("no-show")
-                    calcularTotalCarrito()
-                    return
-
-                }
-
-                var producto = padre.children.item(0)
-                var borrar = padre.children.item(1)
-
-                producto.classList.add("no-show")
-                borrar.classList.remove("no-show")
-
-            })
-
-            function cargardatos(){
-                var cods = ["123","234","123","1425","512","2323","123456"]
-                var marca = ["Luchetti","Sony","Luchetti","190","Ala","Toddy","Coca cola"]
-                var descripcion = ["Fideo moñito 500g","Jostick playstation 4 original guerra","Fideo moñito 500g","Fiambre mortadela","Arroz 500g","Chocolate 500g","2.25l"]
-                var cants = ["1","1","1","1","1","1","1"]
-                var precios = ["190","23000","190","190","150","200","350"]
-                
-                for(let i=0; i<6; i++){
-                    agregarli(cods[i],marca[i], descripcion[i], cants[i], precios[i])
-                }
-            }
-
+            listaEventos()
             cargardatos()
-
+            carritoTotal()
         })
     </script>
 </body>
