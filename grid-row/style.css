@@ -60,12 +60,11 @@ h2{
 .box{
     width: 1200px;
     height: 650px;
-    border: 1px solid grey;
+    
     display: flex;
     flex-direction: row;
     justify-content:space-around;
     align-items: center;
-    border: 1px solid grey;
 }
 
 .pinta-grid{

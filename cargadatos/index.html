@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>CARGA DATOS</title>
+</head>
+<body>
+    <div class="container">
+        <h2>CARGA DATOS</h2>
+        <form autocomplete="off">
+            <input type="text" id="codbarras" placeholder="cod barras" required >
+            <input type="text" id="producto" placeholder="producto" required >
+            <input type="text" id="marca" placeholder="marca" required >
+            <input type="text" id="descripcion" placeholder="descripcion" required >
+            <input type="text" id="precio" placeholder="precio" required>
+            <input type="text" id="preciopublico" placeholder="precio publico" required>
+            <button id="enviar" type="submit">ENVIAR</button>
+        </form>
+        <div class="flash"></div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded",()=>{
+            let ip = "192.168.0.23"
+            let btn = document.querySelector("#enviar")
+            let codigobarras = document.querySelector("#codbarras")
+            let server = "http://"+ip+":3000/producto"
+
+            function borrarInputsAndFocus(){
+                let inputs = document.querySelectorAll("input")
+                        inputs.forEach(input =>{
+                            input.value = ""
+                        })
+                        inputs[0].focus()
+            }
+
+            function flashMessage(mensaje, status, sec){
+                
+                let getStatus = (status) =>{
+                    if (status === "ok") return "flash-accept"
+                    if (status === "error") return "flash-error"
+                    return "flash-warning"
+                }
+
+                var flash = document.querySelector(".flash")
+                var backgroud = getStatus(status)
+                flash.classList.add("flash-show")
+                flash.classList.add(backgroud)
+                flash.innerHTML = mensaje
+                setTimeout(()=>{
+                    flash.classList.remove("flash-show")
+                    flash.classList.remove(backgroud)
+                    flash.innerHTML = ""
+                },sec)
+            }
+
+
+            codigobarras.addEventListener("keydown", e=>{
+                if (e.code === "Enter"){
+                    e.preventDefault()
+                    if ( codigobarras.value === ""){
+                        borrarInputsAndFocus()
+                    }
+                    else{
+                        fetch(server+"/"+codigobarras.value).then(res=>res.json())
+                        .then(res=> {
+                            if ( res.articulo.cod !== "0000" ){
+                                console.log(res.articulo)
+                                flashMessage("El articulo ya se encuentra en su base de datos","error",2400)
+                                borrarInputsAndFocus()
+                            }
+                        })
+                    }
+                }
+            })
+
+
+            btn.addEventListener("click", e=>{
+                e.preventDefault()
+
+                let checkInputsOK = () =>{
+                    let inputs = document.querySelectorAll("input")
+                    let ok = true
+                    inputs.forEach(item =>{
+                        if(item.value === "") ok = false
+                    })
+                    return ok
+                }
+
+
+                let cuerpo = {
+                    cod : document.querySelector("#codbarras").value,
+                    producto : document.querySelector("#producto").value,
+                    marca : document.querySelector("#marca").value,
+                    descripcion : document.querySelector("#descripcion").value,
+                    precio : document.querySelector("#precio").value,
+                    preciop : document.querySelector("#preciopublico").value
+                }
+
+                if ( checkInputsOK() ){
+                    fetch(server, {
+                        method : "POST",
+                        body : JSON.stringify(cuerpo),
+                        headers : {'Content-Type': 'application/json' }
+                    }).then(res=> res.json())
+                    .then(res=>{
+                        if(res.ok === "ok"){
+                            borrarInputsAndFocus()
+                        }
+                    })
+                }
+                else{
+                    console.log("le falto algun input por llenar")
+                }
+            })
+        })
+    </script>
+</body>
+</html>
