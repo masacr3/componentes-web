@@ -12,12 +12,14 @@
         <h2>CARGA DATOS</h2>
         <form autocomplete="off">
             <input type="text" id="codbarras" placeholder="cod barras" required >
-            <input type="text" id="producto" placeholder="producto" required >
-            <input type="text" id="marca" placeholder="marca" required >
-            <input type="text" id="descripcion" placeholder="descripcion" required >
-            <input type="text" id="precio" placeholder="precio" required>
-            <input type="text" id="preciopublico" placeholder="precio publico" required>
-            <button id="enviar" type="submit">ENVIAR</button>
+            <div id="inputs" class="no-show">
+                <input type="text" id="producto" placeholder="producto" required >
+                <input type="text" id="marca" placeholder="marca" required >
+                <input type="text" id="descripcion" placeholder="descripcion" required >
+                <input type="text" id="precio" placeholder="precio" required>
+                <input type="text" id="preciopublico" placeholder="precio publico" required>
+                <button id="enviar" type="submit">ENVIAR</button>
+            </div>
         </form>
         <div class="flash"></div>
     </div>
@@ -50,17 +52,60 @@
                     flash.innerHTML = ""
                 },sec)
             }
+
+            function activarInputs(){
+
+                let contInputs = document.querySelector("#inputs")
+                let inputs = document.querySelectorAll("input")
+
+                contInputs.classList.remove("no-show")
+                inputs.forEach(input => input.disabled = false)
+
+                document.querySelector("#enviar").disabled = false
+                inputs[1].focus()
+
+                
+            }
+
+            function desactivarInputs(){
+                let contInputs = document.querySelector("#inputs")
+                let inputs = document.querySelectorAll("input")
+
+                contInputs.classList.add("no-show")
+                inputs.forEach(input => input.disabled = true)
+                inputs[0].disabled = false
+
+                document.querySelector("#enviar").disabled = true
+            }
+
+           function siguienteFocus(i){
+                let ids = ["#codbarras", "#producto", "#marca", "#descripcion","#precio","#preciopublico", "#enviar"]
+                return ids[(i+1) % 9]
+            }
     </script>
 
     <script>
         document.addEventListener("DOMContentLoaded",()=>{
-            let ip = "192.168.0.23"
+            let ip = "192.168.0.9"
+            let inputs = document.querySelectorAll("input")
             let btn = document.querySelector("#enviar")
             let codigobarras = document.querySelector("#codbarras")
             let server = "http://"+ip+":3000/producto"
 
+            desactivarInputs()
+
+            inputs.forEach((input,i) =>{
+                input.addEventListener("keydown", e=>{
+                    if (e.code === "Enter" || e.code === "NumpadEnter"){
+                        e.preventDefault()
+                        document.querySelector( siguienteFocus(i)).focus()
+                    }
+                })
+            })
+            
+
             codigobarras.addEventListener("keydown", e=>{
-                if (e.code === "Enter"){
+                if (e.code === "Enter" || e.code === "NumpadEnter"){
                     e.preventDefault()
                     if ( codigobarras.value === ""){
                         borrarInputsAndFocus()
@@ -72,6 +117,10 @@
                                 console.log(res.articulo)
                                 flashMessage("El articulo ya se encuentra en su base de datos","error",2400)
                                 borrarInputsAndFocus()
+                            }
+                            else{
+                                console.log("OK el articulo no se encuentra en su base de datos")
+                                activarInputs()
                             }
                         })
                     }

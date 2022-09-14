@@ -12,6 +12,7 @@
     <title>Document</title>
 </head>
 <body>
+    <a id="tiket" href="http://192.168.0.9:3000/api-pdf" target="_blank">TOTAL PDF</a>
     <div class="container">
         <div class="box">
             <div class="col1">
@@ -71,6 +72,22 @@
             listaEventos()
             cargardatos()
             carritoTotal()
+            function tiketec(){
+                var url = 'http://192.168.0.9:3000/api-pdf';
+                var data = {username: 'example'};
+
+                fetch(url, {
+                    method: 'POST', // or 'PUT'
+                    body: JSON.stringify(data), // data can be `string` or {object}!
+                    headers:{
+                        'Content-Type': 'application/json'
+                    }
+                })
+            }
+            
+            document.querySelector("#tiket").addEventListener("click", e=>{
+                tiketec()
+            })
         })
     </script>
 </body>
