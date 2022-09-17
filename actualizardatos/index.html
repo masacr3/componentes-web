@@ -8,17 +8,17 @@
     <title>CARGA DATOS</title>
 </head>
 <body>
-    <h2>CARGA DATOS</h2>
+    <h2>ACTUALIZAR DATOS</h2>
     <div id="container" class="container f-jc">
         <form id="form" autocomplete="off" class="no-show">
             <div class="f-row">
-                <input type="text" id="codbarras" placeholder="cod barras" required >
+                <input type="text" id="codbarras" placeholder="cod barras" spellcheck="false" required >
                 <img id="cancelar" src="./error.png" alt="">
             </div>
             <div id="inputs" class="no-show">
-                <input type="text" id="producto" placeholder="producto" required >
-                <input type="text" id="marca" placeholder="marca" required >
-                <input type="text" id="descripcion" placeholder="descripcion" required >
+                <input type="text" id="producto" placeholder="producto" spellcheck="false" required >
+                <input type="text" id="marca" placeholder="marca" spellcheck="false" required >
+                <input type="text" id="descripcion" placeholder="descripcion" spellcheck="false" required >
                 <input type="number" id="precio" placeholder="precio" required>
                 <input type="number" id="preciopublico" placeholder="precio publico" required>
                 <button id="enviar" type="submit">ENVIAR</button>
@@ -151,36 +151,29 @@
                 return ids[(i+1) % 9]
             }
 
-            function PUTt(path){
-                let cuerpo = {
-                    cod : "11",
-                    producto : "cel",
-                    marca : "apple",
-                    descripcion : "xs",
-                    precio : "22000",
-                    preciop : "800000"
-                }
-                fetch(path, {
-                        method : "PUT",
-                        body : JSON.stringify(cuerpo),
-                        headers : {'Content-Type': 'application/json' }
-                    }).then(res=> res.json())
-                    .then(res=>{
-                        console.log(res.ok)
-                    })
+            function cargarInputs(articulo){
+                let content = [articulo.cod, articulo.producto, articulo.marca, articulo.descripcion, articulo.precio, articulo.preciopublico]
+                console.log(content)
+                let inputs = document.querySelectorAll("input")
+                console.log(inputs)
+                content.forEach( (item,i) => inputs[i].value = item)
+                inputs[1].focus()
+                inputs[1].select()
             }
-
 
     </script>
 
     <script>
         document.addEventListener("DOMContentLoaded",()=>{
-            let inputs = document.querySelectorAll("input")
+            let inputs = Array.from(document.querySelectorAll("input"))
+            inputs.pop()
             let btnEnviar = document.querySelector("#enviar")
             let btnConn = document.querySelector("#conectar")
             let inputIP = document.querySelector("#ip")
             let btnCancelar = document.querySelector("#cancelar")
             let codigobarras = document.querySelector("#codbarras")
+            
+            console.log(inputs)
 
             //localStorage.clear()
 
@@ -198,8 +191,15 @@
                 input.addEventListener("keydown", e=>{
                     if (e.code === "Enter" || e.code === "NumpadEnter"){
                         e.preventDefault()
-                        document.querySelector( siguienteFocus(i)).focus()
+                        let item = document.querySelector( siguienteFocus(i))
+                        item.focus()
+                        if ( i < 5){
+                            item.select()
+                        }
                     }
+                })
+                input.addEventListener("click",e=>{
+                    input.select()
                 })
             })
             
@@ -214,14 +214,14 @@
                         let server = "http://"+ip+":3000/producto"
                         fetch(server+"/"+codigobarras.value).then(res=>res.json())
                         .then(res=> {
-                            if ( res.articulo.cod !== "0000" ){
-                                console.log(res.articulo)
-                                flashMessage("El articulo ya se encuentra en su base de datos","error",2400)
+                            if ( res.articulo.cod === "0000" ){
+                                flashMessage("El articulo no se encuentra en su base de datos","error",2400)
                                 borrarInputsAndFocus()
                             }
                             else{
-                                console.log("OK el articulo no se encuentra en su base de datos")
+                                console.log("OK el articulo se encuentra en su base de datos")
                                 activarInputs()
+                                cargarInputs(res.articulo)
                             }
                         })
                         .catch(error=>{
@@ -247,7 +247,8 @@
                 e.preventDefault()
 
                 let checkInputsOK = () =>{
-                    let inputs = document.querySelectorAll("input")
+                    let inputs = Array.from(document.querySelectorAll("input"))
+                    inputs.pop()
                     let ok = true
                     inputs.forEach(item =>{
                         if(item.value === "") ok = false
@@ -269,7 +270,7 @@
                     var ip = localStorage.getItem("coneccionservidor")
                     let server = "http://"+ip+":3000/producto"
                     fetch(server, {
-                        method : "POST",
+                        method : "PUT",
                         body : JSON.stringify(cuerpo),
                         headers : {'Content-Type': 'application/json' }
                     }).then(res=> res.json())

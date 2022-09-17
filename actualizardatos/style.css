@@ -1,0 +1,142 @@
+html, body{
+    box-sizing:border-box;
+    background-color: #151515;
+    font-size: 18px;
+    color: #169dac;
+    user-select: none;
+    font-family: "helvetica";
+}
+
+h2{
+    background: linear-gradient(#169dac, #8e5fd9);
+    -webkit-background-clip: text;
+    color: transparent;    
+}
+
+.container{
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form, #inputs{
+    display: flex;
+    flex-direction: column;
+    align-items: initial;
+}
+
+input{
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-image: linear-gradient(to right, #169dac, #8e5fd9);
+    border-image-slice: 1;
+    color: #244256;
+}
+
+.no-show{
+    height: 0px;
+    overflow: hidden;
+    border-image-slice: 0;
+}
+
+input, #enviar, #cancelar, #conectar    {
+    height: 40px;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+input{
+    padding-left: 10px;
+}
+
+input::placeholder{
+    color:#244256;
+}
+
+input:focus{
+    outline: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-image: linear-gradient(to right, #3916ac, #d1d95f);
+    border-image-slice: 1;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+input[type=number] { -moz-appearance:textfield; }
+
+.flash-show{
+    width: 100%;
+    height: 50px;
+    background-color: cornflowerblue;
+    color: aliceblue;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flash-accept{
+    background-color: green;
+}
+
+.flash-error{
+    background-color: coral;
+}
+
+.flash-warning{
+    background-color: goldenrod;
+}
+
+.f-row{
+    width: 290px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.f-col{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#enviar, #conectar{
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-image: linear-gradient(to right, #169dac, #8e5fd9);
+    border-image-slice: 1;
+    color: #8e5fd9;
+}
+
+#enviar:hover, #enviar:active, #enviar:focus, #conectar:hover{
+    outline: none;
+    background-color: #8e5fd9;
+    border: 1px solid #8e5fd9;
+    color: #151515;
+}
+
+.f-jc{
+    justify-content: center;
+    height: 80vh;
+}
+
+.centrado{
+    display: flex;
+    flex-direction: column;
+    align-items:  center;
+    justify-content: center;
+}
+
+/* #ip{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+} */
