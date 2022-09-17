@@ -247,7 +247,9 @@
                 e.preventDefault()
 
                 let checkInputsOK = () =>{
-                    let inputs = document.querySelectorAll("input")
+
+                    let inputs = Array.from(document.querySelectorAll("input"))
+                    inputs.pop()
                     let ok = true
                     inputs.forEach(item =>{
                         if(item.value === "") ok = false
