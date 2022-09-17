@@ -8,28 +8,108 @@
     <title>CARGA DATOS</title>
 </head>
 <body>
-    <div class="container">
-        <h2>CARGA DATOS</h2>
-        <form autocomplete="off">
-            <input type="text" id="codbarras" placeholder="cod barras" required >
+    <h2>CARGA DATOS</h2>
+    <div id="container" class="container f-jc">
+        <form id="form" autocomplete="off" class="no-show">
+            <div class="f-row">
+                <input type="text" id="codbarras" placeholder="cod barras" required >
+                <img id="cancelar" src="./error.png" alt="">
+            </div>
             <div id="inputs" class="no-show">
                 <input type="text" id="producto" placeholder="producto" required >
                 <input type="text" id="marca" placeholder="marca" required >
                 <input type="text" id="descripcion" placeholder="descripcion" required >
-                <input type="text" id="precio" placeholder="precio" required>
-                <input type="text" id="preciopublico" placeholder="precio publico" required>
+                <input type="number" id="precio" placeholder="precio" required>
+                <input type="number" id="preciopublico" placeholder="precio publico" required>
                 <button id="enviar" type="submit">ENVIAR</button>
             </div>
         </form>
         <div class="flash"></div>
+        <div id="coneccion" class="centrado">
+            <input id="ip" type="text" placeholder="Conectar IP">
+            <button id="conectar">Conectar</button>
+        </div>
     </div>
 
     <script>
-        function borrarInputsAndFocus(){
+
+            function ponerLog(){
+                document.querySelector("#container").classList.add("f-jc")
+                document.querySelector("#form").classList.add("no-show")
+                document.querySelector("#coneccion").classList.remove("no-show")
+                document.querySelector("#ip").disabled =false
+                document.querySelector("#ip").value = ""
+                document.querySelector("#ip").focus()
+            }
+
+            function quitarLog(){
+                document.querySelector("#container").classList.remove("f-jc")
+                document.querySelector("#form").classList.remove("no-show")
+                document.querySelector("#coneccion").classList.add("no-show")
+            }
+
+            function verificaHostGuardado(){
+                var serve = localStorage.getItem("coneccionservidor")
+                if ( serve === null){
+                    localStorage.clear()
+                    console.log("No existe ningun token en la maquina")
+                }
+                else{
+                    console.log("verifico Token de coneccion")
+                    conectarHost(true)
+                }
+            }
+            
+            function conectarHost(existeLocalStorage){
+                if (existeLocalStorage){
+                    console.log("existe llave en la maquina")
+                    var ip = localStorage.getItem("coneccionservidor")
+                }
+                else{
+                    var ip = document.querySelector("#ip").value
+                }
+                console.log(ip)
+                let strconn = "http://"+ip+":3000/"
+                fetch(strconn).then(res=> res.json())
+                .then(res=>{
+                    if ( res.ok === "ok"){
+                        localStorage.setItem("coneccionservidor",ip)
+                        console.log("La coneccion con el servidor estan OK")
+                        quitarLog()
+                    }
+                })
+                .catch(error => {
+                    localStorage.clear()
+                    document.querySelector("#ip").value = ""
+                    document.querySelector("#ip").focus()
+                    ponerLog()
+                }); 
+                
+            }
+
+            function cancelarOperacion(){
+                desactivarInputs()
+                borrarInputsAndFocus()
+            }
+
+            function desactivarInputs(){
+                let contInputs = document.querySelector("#inputs")
+                let inputs = document.querySelectorAll("input")
+
+                contInputs.classList.add("no-show")
+                inputs.forEach(input => input.disabled = true)
+                inputs[0].disabled = false  //cod
+                inputs[6].disabled = false //ipConn
+
+                document.querySelector("#enviar").disabled = true
+            }
+
+            function borrarInputsAndFocus(){
                 let inputs = document.querySelectorAll("input")
                         inputs.forEach(input =>{
                             input.value = ""
                         })
+                        desactivarInputs()
                         inputs[0].focus()
             }
 
@@ -63,36 +143,58 @@
 
                 document.querySelector("#enviar").disabled = false
                 inputs[1].focus()
-
                 
             }
 
-            function desactivarInputs(){
-                let contInputs = document.querySelector("#inputs")
-                let inputs = document.querySelectorAll("input")
-
-                contInputs.classList.add("no-show")
-                inputs.forEach(input => input.disabled = true)
-                inputs[0].disabled = false
-
-                document.querySelector("#enviar").disabled = true
-            }
-
-           function siguienteFocus(i){
-                let ids = ["#codbarras", "#producto", "#marca", "#descripcion","#precio","#preciopublico", "#enviar"]
+            function siguienteFocus(i){
+                let ids = ["#codbarras", "#producto", "#marca", "#descripcion","#precio","#preciopublico", "#enviar", "#conectar", "#conectar"]
                 return ids[(i+1) % 9]
             }
+
+            function PUTt(path){
+                let cuerpo = {
+                    cod : "11",
+                    producto : "cel",
+                    marca : "apple",
+                    descripcion : "xs",
+                    precio : "22000",
+                    preciop : "800000"
+                }
+                fetch(path, {
+                        method : "PUT",
+                        body : JSON.stringify(cuerpo),
+                        headers : {'Content-Type': 'application/json' }
+                    }).then(res=> res.json())
+                    .then(res=>{
+                        console.log(res.ok)
+                    })
+            }
+
+
     </script>
 
     <script>
         document.addEventListener("DOMContentLoaded",()=>{
             let ip = "192.168.0.9"
             let inputs = document.querySelectorAll("input")
-            let btn = document.querySelector("#enviar")
+            let btnEnviar = document.querySelector("#enviar")
+            let btnConn = document.querySelector("#conectar")
+            let inputIP = document.querySelector("#ip")
+            let btnCancelar = document.querySelector("#cancelar")
             let codigobarras = document.querySelector("#codbarras")
             let server = "http://"+ip+":3000/producto"
 
+            //localStorage.clear()
+
             desactivarInputs()
+            verificaHostGuardado()
+
+            inputIP.addEventListener("keydown", e=>{
+                if(e.code === "Enter" || e.code === "NumpadEnter"){
+                    e.preventDefault()
+                    btnConn.focus()
+                }
+            })
 
             inputs.forEach((input,i) =>{
                 input.addEventListener("keydown", e=>{
@@ -103,7 +205,6 @@
                 })
             })
             
-
             codigobarras.addEventListener("keydown", e=>{
                 if (e.code === "Enter" || e.code === "NumpadEnter"){
                     e.preventDefault()
@@ -123,11 +224,26 @@
                                 activarInputs()
                             }
                         })
+                        .catch(error=>{
+                            console.error(error)
+                            borrarInputsAndFocus()
+                            ponerLog()
+                        })
                     }
                 }
             })
 
-            btn.addEventListener("click", e=>{
+            btnConn.addEventListener("click", e=>{
+                e.preventDefault()
+                conectarHost(false)
+            })
+
+            btnCancelar.addEventListener("click", e=>{
+                e.preventDefault()
+                cancelarOperacion()
+            })
+
+            btnEnviar.addEventListener("click", e=>{
                 e.preventDefault()
 
                 let checkInputsOK = () =>{
@@ -160,9 +276,14 @@
                             borrarInputsAndFocus()
                         }
                     })
+                    .catch(error=>{
+                            console.error(error)
+                            borrarInputsAndFocus()
+                            ponerLog()
+                        })
                 }
                 else{
-                    console.log("le falto algun input por llenar")
+                    flashMessage("Porfavor llene todos los campos","error",2400)
                 }
             })
         })
