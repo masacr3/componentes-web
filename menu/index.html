@@ -9,31 +9,33 @@
 </head>
 <body>
     <div class="container">
-        <div class="boxx">
-            <!-- diseño componente -->
-            <div class="border">
-                <h2 class="menu-titulo mb-2">Menu</h2>
-                <ul>
-                    <li class="menu-item">Ventas</li>
-                    <li class="menu-item">Cargar Producto</li>
-                    <li class="menu-item">Actualizar Producto</li>
-                    <li class="menu-item">Consultar</li>
-                </ul>
-            </div>
-        </div>
+        <h1>ALMACEN DAJES</h1>
+        <h3>Punta lara 565</h3>
+        <br>
+        <ul>
+           <li>
+                <div class="consepto">
+                    2.mostaza savora original 60g
+                </div>
+                <div class="subtotal">200</div>
+            </li>
+            <li>
+                <div class="consepto">
+                    1.mayonesa hellmans clasica 118g
+                </div>
+                <div class="subtotal">150</div>
+            </li>
+            <li>
+                TOTAL 350
+            </li>
+            <li>
+                GRACIAS POR SU COMPRA
+            </li>
+        </ul>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            //seleccionar LI
-            document.querySelector("ul").addEventListener("click",e=>{
-                if (e.target.tagName == "LI"){
-                    document.querySelectorAll("li").forEach(item =>{
-                        item.classList.remove("selected")
-                    })
-                    e.target.classList.add("selected")
-                }
-                
-            })
+            
         })
     </script>
 </body>
