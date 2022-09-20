@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>TIKET</title>
+</head>
+<body>
+    <div class="container">
+        <p> ALMACEN DAJES</p>
+        <p>Punta lara 565</p>
+        <br>
+        <ul>
+           <!-- <li>
+                <div class="consepto">
+                    2.mostaza savora original 60g
+                </div>
+                <div class="subtotal">200</div>
+            </li>
+            <li>
+                <div class="consepto">
+                    1.mayonesa hellmans clasica 118g
+                </div>
+                <div class="subtotal">150</div>
+            </li> -->
+            <!-- <li>
+                TOTAL 350
+            </li>
+            <li class="no-margin">
+                GRACIAS
+            </li>
+            <li class="move-l">POR SU COMPRA</li> -->
+        </ul>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            var ip = localStorage.getItem("coneccionservidor")
+            var url = "http://"+ ip +":3000/tiket";
+            fetch(url).then(res=>res.json())
+            .then(res=> {
+                let lineas = res.ok
+                let total = res.totalv
+                let ul = document.querySelector("ul")
+
+                lineas.forEach(linea => {
+                    console.log(linea)
+                    var li = document.createElement("li")
+                    
+                    var dconsepto = document.createElement("div")
+                    dconsepto.classList.add("consepto")
+                    dconsepto.innerHTML = linea[0] 
+
+                    var dsubtotal = document.createElement("div")
+                    dsubtotal.classList.add("subtotal")
+                    dsubtotal.innerHTML = linea[1]
+
+                    li.appendChild(dconsepto)
+                    li.appendChild(dsubtotal)
+                    ul.appendChild(li)
+                });
+
+                var lit = document.createElement("li")
+                lit.innerHTML = "TOTAL "+res.totalv
+                
+                var saludo = document.createElement("li")
+                saludo.classList.add("no-margin")
+                saludo.innerHTML = "GRACIAS"
+
+                var saludo2 = document.createElement("li")
+                saludo2.classList.add("move-l")
+                saludo2.innerHTML = "POR SU COMPRA"
+
+                ul.appendChild(lit)
+                ul.appendChild(saludo)
+                ul.appendChild(saludo2)
+            })
+        })
+    </script>
+</body>
+</html>

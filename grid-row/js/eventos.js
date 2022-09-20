@@ -83,11 +83,10 @@ function listaEventos(){
             if(item.getAttribute("data-menu") === "tiket"){
                 console.log("clickeo tiket")
                 var ip = localStorage.getItem("coneccionservidor")
-                var url = "http://"+ ip +":3000/api-pdf";
+                //var url = "http://"+ ip +":3000/api-pdf";
+                var url = "http://"+ ip +":3000/tiket";
                 var data = { "productos": recoletar_datos() };
 
-                // fetch(url).then(res=> res.json())
-                // .then(res => console.log(res))
                 console.log(data)
                 
                 fetch(url, {
@@ -98,7 +97,7 @@ function listaEventos(){
                     }
                 }).then(res => res.json())
                 .then(res =>{
-                    window.open(res.link, "blank_") 
+                    window.open("./menu/tiket.html", "blank_") 
                 })                
             }
         })

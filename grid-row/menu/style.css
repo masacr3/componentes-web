@@ -1,0 +1,40 @@
+html, body , p, ul{
+    box-sizing:border-box;
+    margin: 0;
+    font-family: monospace;
+}
+
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+p{
+    padding-left: 30px;
+}
+
+.l{
+    padding-left: 50px;
+}
+
+ul{
+    padding-left: 10px;
+}
+
+li{
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 7px;
+}
+
+ul{
+    margin-bottom: 100px;
+}
+
+.no-margin{
+    margin: 0;
+}
