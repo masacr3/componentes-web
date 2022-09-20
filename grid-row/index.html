@@ -12,7 +12,7 @@
     <title>Document</title>
 </head>
 <body>
-    <a id="tiket" href="http://192.168.0.9:3000/api-pdf" target="_blank">TOTAL PDF</a>
+    <!-- <a id="tiket" href="http://192.168.0.9:3000/api-pdf" target="_blank">TOTAL PDF</a> -->
     <div class="container">
         <div class="box">
             <div class="col1">
@@ -57,12 +57,13 @@
                 </div>
                 <!-- listo -->
                 <div class="total">
-                    <img src="./img/dolar.png" alt="">
+                    <img src="./img/dolar.png" alt="" data-menu="tiket">
                     <div class="total-value"></div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="./js/tikets.js"></script>
     <script src="./js/serviceProduct.js"></script>
     <script src="./js/eventos.js"></script>
     <script src="./js/funcionesCarrito.js"></script>
@@ -73,24 +74,9 @@
             console.log( localStorage.getItem("coneccionservidor"))
 
             listaEventos()
-            cargardatos()
+            //cargardatos()
             carritoTotal()
-            function tiketec(){
-                var url = 'http://192.168.0.9:3000/api-pdf';
-                var data = {username: 'example'};
-
-                fetch(url, {
-                    method: 'POST', // or 'PUT'
-                    body: JSON.stringify(data), // data can be `string` or {object}!
-                    headers:{
-                        'Content-Type': 'application/json'
-                    }
-                })
-            }
             
-            document.querySelector("#tiket").addEventListener("click", e=>{
-                tiketec()
-            })
         })
     </script>
 </body>

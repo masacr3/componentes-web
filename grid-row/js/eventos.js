@@ -80,6 +80,27 @@ function listaEventos(){
             if(item.getAttribute("data-menu") === "actualizarOn"){
                 console.log("clickeo actualizar")
             }
+            if(item.getAttribute("data-menu") === "tiket"){
+                console.log("clickeo tiket")
+                var ip = localStorage.getItem("coneccionservidor")
+                var url = "http://"+ ip +":3000/api-pdf";
+                var data = { "productos": recoletar_datos() };
+
+                // fetch(url).then(res=> res.json())
+                // .then(res => console.log(res))
+                console.log(data)
+                
+                fetch(url, {
+                    method: 'POST', // or 'PUT'
+                    body: JSON.stringify(data), // data can be `string` or {object}!
+                    headers:{
+                        'Content-Type': 'application/json'
+                    }
+                }).then(res => res.json())
+                .then(res =>{
+                    window.open(res.link, "blank_") 
+                })                
+            }
         })
     })
 }

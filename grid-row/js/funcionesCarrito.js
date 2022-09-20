@@ -58,94 +58,189 @@ function carritoActualizarProducto(cod, quitar){
 //eso lo tendria q verificar otra funcion
 function carritoAgregarProducto(cod){
     var servicioApi = new ServicesApiProductos()
-    var producto = servicioApi.obtener(cod)
-    if (producto.cod === "0000") return;
+    servicioApi.obtener(cod)
+    .then(res => res.json())
+    .then(res=>{
+        let producto = res.articulo
+        
+        if (producto.cod === "0000") return;
 
-    var ul = document.querySelector("ul")
+        var ul = document.querySelector("ul")
 
-    var li = document.createElement("li")
-    li.setAttribute("data-cod-barras", producto.cod)
-    li.setAttribute("data-precio", producto.precio)
+        var li = document.createElement("li")
+        li.setAttribute("data-cod-barras", producto.cod)
+        li.setAttribute("data-precio", producto.preciopublico)
 
-    var dproducto = document.createElement("div")
-    dproducto.classList.add("producto")
+        var dproducto = document.createElement("div")
+        dproducto.classList.add("producto")
+        dproducto.setAttribute("data-producto", producto.producto)
 
-    var dcantidad = document.createElement("div")
-    dcantidad.classList.add("cant")
+        var dcantidad = document.createElement("div")
+        dcantidad.classList.add("cant")
 
-    var dcantidadvalue = document.createElement("div")
-    dcantidadvalue.classList.add("value")
-    dcantidadvalue.innerHTML = producto.cantidad
+        var dcantidadvalue = document.createElement("div")
+        dcantidadvalue.classList.add("value")
+        dcantidadvalue.innerHTML = "1"
 
-    var dplaceholdercant = document.createElement("div")
-    dplaceholdercant.classList.add("mute")
-    dplaceholdercant.innerHTML = "cantidad"
+        var dplaceholdercant = document.createElement("div")
+        dplaceholdercant.classList.add("mute")
+        dplaceholdercant.innerHTML = "cantidad"
 
-    var darticulo =  document.createElement("div")
-    darticulo.classList.add("articulo")
+        var darticulo =  document.createElement("div")
+        darticulo.classList.add("articulo")
 
-    var dmarca = document.createElement("div")
-    dmarca.classList.add("marca")
-    dmarca.innerHTML = producto.marca
+        var dmarca = document.createElement("div")
+        dmarca.classList.add("marca")
+        dmarca.innerHTML = producto.marca
 
-    var ddescripcion = document.createElement("div")
-    ddescripcion.classList.add("descripcion")
-    ddescripcion.classList.add("truncado-articulos")
-    ddescripcion.innerHTML = producto.descripcion 
-
-
-    var dsubtotal = document.createElement("div")
-    dsubtotal.classList.add("subtotal")
-
-    var dsubtotalvalue = document.createElement("div")
-    dsubtotalvalue.classList.add("value")
-    dsubtotalvalue.innerHTML = producto.precio
-
-    var dplaceholdersubtotal = document.createElement("div")
-    dplaceholdersubtotal.classList.add("mute-der")
-    dplaceholdersubtotal.innerHTML = "subtotal"
-
-    var dborrar = document.createElement("div")
-    dborrar.classList.add("borrar")
-    dborrar.classList.add("no-show")
-
-    var dtitulo = document.createElement("div")
-    dtitulo.classList.add("titulo")
-    dtitulo.innerHTML = "Borrar articulo?"
-
-    var dok = document.createElement("div")
-    dok.classList.add("ok")
-    dok.innerHTML = "Ok"
-
-    var dcancel = document.createElement("div")
-    dcancel.classList.add("cancel")
-    dcancel.innerHTML = "Cancelar"
-
-    //armamos el arbol de dependencias
-
-    dcantidad.appendChild(dcantidadvalue)
-    dcantidad.appendChild(dplaceholdercant)
-    darticulo.appendChild(dmarca)
-    darticulo.appendChild(ddescripcion)
-    dsubtotal.appendChild(dsubtotalvalue)
-    dsubtotal.appendChild(dplaceholdersubtotal)
-    dproducto.appendChild(dcantidad)
-    dproducto.appendChild(darticulo)
-    dproducto.appendChild(dsubtotal)
-    dborrar.appendChild(dtitulo)
-    dborrar.appendChild(dok)
-    dborrar.appendChild(dcancel)
-
-    li.appendChild(dproducto)
-    li.appendChild(dborrar)
-
-    ul.appendChild(li)
+        var ddescripcion = document.createElement("div")
+        ddescripcion.classList.add("descripcion")
+        ddescripcion.classList.add("truncado-articulos")
+        ddescripcion.innerHTML = producto.descripcion 
 
 
-    //agrego el scrolling si hay mas de X li en el UL
-    if ( document.querySelectorAll("li").length > 5 ){
-        ul.classList.add("scrolling")
-    }
+        var dsubtotal = document.createElement("div")
+        dsubtotal.classList.add("subtotal")
+
+        var dsubtotalvalue = document.createElement("div")
+        dsubtotalvalue.classList.add("value")
+        dsubtotalvalue.innerHTML = producto.preciopublico
+
+        var dplaceholdersubtotal = document.createElement("div")
+        dplaceholdersubtotal.classList.add("mute-der")
+        dplaceholdersubtotal.innerHTML = "subtotal"
+
+        var dborrar = document.createElement("div")
+        dborrar.classList.add("borrar")
+        dborrar.classList.add("no-show")
+
+        var dtitulo = document.createElement("div")
+        dtitulo.classList.add("titulo")
+        dtitulo.innerHTML = "Borrar articulo?"
+
+        var dok = document.createElement("div")
+        dok.classList.add("ok")
+        dok.innerHTML = "Ok"
+
+        var dcancel = document.createElement("div")
+        dcancel.classList.add("cancel")
+        dcancel.innerHTML = "Cancelar"
+
+        //armamos el arbol de dependencias
+
+        dcantidad.appendChild(dcantidadvalue)
+        dcantidad.appendChild(dplaceholdercant)
+        darticulo.appendChild(dmarca)
+        darticulo.appendChild(ddescripcion)
+        dsubtotal.appendChild(dsubtotalvalue)
+        dsubtotal.appendChild(dplaceholdersubtotal)
+        dproducto.appendChild(dcantidad)
+        dproducto.appendChild(darticulo)
+        dproducto.appendChild(dsubtotal)
+        dborrar.appendChild(dtitulo)
+        dborrar.appendChild(dok)
+        dborrar.appendChild(dcancel)
+
+        li.appendChild(dproducto)
+        li.appendChild(dborrar)
+
+        ul.appendChild(li)
+
+
+        //agrego el scrolling si hay mas de X li en el UL
+        if ( document.querySelectorAll("li").length > 5 ){
+            ul.classList.add("scrolling")
+        }
+
+        carritoTotal()
+    })
+    // if (producto.cod === "0000") return;
+
+    // var ul = document.querySelector("ul")
+
+    // var li = document.createElement("li")
+    // li.setAttribute("data-cod-barras", producto.cod)
+    // li.setAttribute("data-precio", producto.precio)
+
+    // var dproducto = document.createElement("div")
+    // dproducto.classList.add("producto")
+
+    // var dcantidad = document.createElement("div")
+    // dcantidad.classList.add("cant")
+
+    // var dcantidadvalue = document.createElement("div")
+    // dcantidadvalue.classList.add("value")
+    // dcantidadvalue.innerHTML = producto.cantidad
+
+    // var dplaceholdercant = document.createElement("div")
+    // dplaceholdercant.classList.add("mute")
+    // dplaceholdercant.innerHTML = "cantidad"
+
+    // var darticulo =  document.createElement("div")
+    // darticulo.classList.add("articulo")
+
+    // var dmarca = document.createElement("div")
+    // dmarca.classList.add("marca")
+    // dmarca.innerHTML = producto.marca
+
+    // var ddescripcion = document.createElement("div")
+    // ddescripcion.classList.add("descripcion")
+    // ddescripcion.classList.add("truncado-articulos")
+    // ddescripcion.innerHTML = producto.descripcion 
+
+
+    // var dsubtotal = document.createElement("div")
+    // dsubtotal.classList.add("subtotal")
+
+    // var dsubtotalvalue = document.createElement("div")
+    // dsubtotalvalue.classList.add("value")
+    // dsubtotalvalue.innerHTML = producto.precio
+
+    // var dplaceholdersubtotal = document.createElement("div")
+    // dplaceholdersubtotal.classList.add("mute-der")
+    // dplaceholdersubtotal.innerHTML = "subtotal"
+
+    // var dborrar = document.createElement("div")
+    // dborrar.classList.add("borrar")
+    // dborrar.classList.add("no-show")
+
+    // var dtitulo = document.createElement("div")
+    // dtitulo.classList.add("titulo")
+    // dtitulo.innerHTML = "Borrar articulo?"
+
+    // var dok = document.createElement("div")
+    // dok.classList.add("ok")
+    // dok.innerHTML = "Ok"
+
+    // var dcancel = document.createElement("div")
+    // dcancel.classList.add("cancel")
+    // dcancel.innerHTML = "Cancelar"
+
+    // //armamos el arbol de dependencias
+
+    // dcantidad.appendChild(dcantidadvalue)
+    // dcantidad.appendChild(dplaceholdercant)
+    // darticulo.appendChild(dmarca)
+    // darticulo.appendChild(ddescripcion)
+    // dsubtotal.appendChild(dsubtotalvalue)
+    // dsubtotal.appendChild(dplaceholdersubtotal)
+    // dproducto.appendChild(dcantidad)
+    // dproducto.appendChild(darticulo)
+    // dproducto.appendChild(dsubtotal)
+    // dborrar.appendChild(dtitulo)
+    // dborrar.appendChild(dok)
+    // dborrar.appendChild(dcancel)
+
+    // li.appendChild(dproducto)
+    // li.appendChild(dborrar)
+
+    // ul.appendChild(li)
+
+
+    // //agrego el scrolling si hay mas de X li en el UL
+    // if ( document.querySelectorAll("li").length > 5 ){
+    //     ul.classList.add("scrolling")
+    // }
   
 }
 
