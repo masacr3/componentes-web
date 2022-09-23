@@ -1,5 +1,5 @@
 function listaEventos(){
-    document.querySelector("ul").addEventListener("click",e=>{
+    document.querySelector(".ventas").addEventListener("click",e=>{
 
         var apretoBorrar = e.target.innerHTML === "Ok"
         var apretoCancelar = e.target.innerHTML === "Cancelar"
@@ -16,7 +16,7 @@ function listaEventos(){
             carritoQuitar(cod)
 
             if( document.querySelectorAll("li").length < 6 ){
-                document.querySelector("ul").classList.remove("scrolling")
+                document.querySelector(".ventas").classList.remove("scrolling")
             }
             carritoTotal()
             return
@@ -26,12 +26,12 @@ function listaEventos(){
             padre.parentNode.removeChild(padre)
             
             if( document.querySelectorAll("li").length < 6 ){
-                document.querySelector("ul").classList.remove("scrolling")
+                document.querySelector(".ventas").classList.remove("scrolling")
             }
 
             var lis = document.querySelectorAll("li")
             if( lis.length === 0 ){
-                var ul = document.querySelector("ul")
+                var ul = document.querySelector(".ventas")
                 var li = document.createElement("li")
                 li.setAttribute("data-cod-barras", "0000")
                 li.classList.add("no-productos")
@@ -71,8 +71,27 @@ function listaEventos(){
 
     document.querySelectorAll("img").forEach(item=>{
         item.addEventListener("click",e=>{
-            if(item.getAttribute("data-menu") === "carritoOn"){
-                console.log("clickeo carrito")
+            if(item.getAttribute("data-menu") === "frutason"){
+                console.log("clickeo frutas")
+                let col1 = document.querySelector(".col1")
+                let col2 = document.querySelector(".col2")
+                let col3 = document.querySelector(".col3")
+                col1.classList.add("no-show")
+                col2.classList.add("no-show")
+                col3.classList.remove("no-show")
+                var ip = localStorage.getItem("coneccionservidor")
+                var url = "http://"+ ip +":3000/verduleria";
+                fetch(url).then(res=>res.json())
+                .then(res=>{
+                    console.log(res)
+                    let verduras = res.verduras
+                    let ul = document.querySelector(".verduleria")
+                    verduras.forEach(verdura =>{
+                        var li = document.createElement("li")
+                        li.innerHTML = verdura.producto + " " + verdura.preciop
+                        ul.appendChild(li)
+                    })
+                })
             }
             if(item.getAttribute("data-menu") === "agregarOn"){
                 console.log("clickeo agregar")
@@ -83,8 +102,8 @@ function listaEventos(){
             if(item.getAttribute("data-menu") === "tiket"){
                 console.log("clickeo tiket")
                 var ip = localStorage.getItem("coneccionservidor")
-                //var url = "http://"+ ip +":3000/api-pdf";
-                var url = "http://"+ ip +":3000/tiket";
+                var url = "http://"+ ip +":3000/api-pdf";
+                //var url = "http://"+ ip +":3000/tiket";
                 var data = { "productos": recoletar_datos() };
 
                 console.log(data)
@@ -97,7 +116,14 @@ function listaEventos(){
                     }
                 }).then(res => res.json())
                 .then(res =>{
-                    window.open("./menu/tiket.html", "blank_") 
+                    fetch(url).then(res=> res.blob())
+                    .then(data=>{
+                        var a = document.createElement("a")
+                        a.href = window.URL.createObjectURL(data)
+                        a.download = "TIKET"
+                        a.click()
+                        carritoVaciar()
+                    })
                 })                
             }
         })

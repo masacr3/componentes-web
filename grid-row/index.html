@@ -20,11 +20,11 @@
                 <div class="menu">
                     <div class="mask">
                         <div class="mask-container">
-                            <img src="./img/carrito-de-supermercado-off.png" alt="" data-menu="carrito">    
-                            <img src="./img/carrito-de-supermercado.png" alt="" data-menu="carritoOn">
+                            <img src="./img/frutas.png" alt="" data-menu="frutas">    
+                            <img src="./img/frutason.png" alt="" data-menu="frutason">
                         </div>
                     </div>
-                    <div class="mask">
+                    <!-- <div class="mask">
                         <div class="mask-container">
                             <img src="./img/agregar-paquete-off.png" alt="" data-menu="agregar">    
                             <img src="./img/agregar-paquete.png" alt="" data-menu="agregarOn">
@@ -35,7 +35,7 @@
                             <img src="./img/lista-de-verificacion-off.png" alt="" data-menu="actualizar">    
                             <img src="./img/lista-de-verificacion.png" alt="" data-menu="actualizarOn">
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="col2">
@@ -49,7 +49,7 @@
                         <img src="./img/codigo-de-barras.png" class="img-cod">
                         <input type="text" id="codbarras" placeholder="Cod barras...">    
                     </div>
-                    <ul>
+                    <ul class="ventas">
                         <li class="no-productos" data-cod-barras="0000">
                             No hay articulos en su carrito
                         </li>
@@ -60,6 +60,11 @@
                     <img src="./img/dolar.png" alt="" data-menu="tiket">
                     <div class="total-value"></div>
                 </div>
+            </div>
+            <div class="col3 no-show">
+                <ul class="verduleria">
+                    
+                </ul>
             </div>
         </div>
     </div>
@@ -74,7 +79,7 @@
             console.log( localStorage.getItem("coneccionservidor"))
 
             listaEventos()
-            //cargardatos()
+            cargardatos()
             carritoTotal()
             
         })
