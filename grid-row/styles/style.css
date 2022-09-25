@@ -203,6 +203,11 @@ li{
     height: 0;
 }
 
+.centralizar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 /************ tota ****************/
 
 .sticky{
@@ -210,3 +215,38 @@ li{
     top: 20px;
 }
 
+/* verduleria */
+.v-li{
+    height: 60px;
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    overflow: hidden;
+}
+
+.v-expandir{
+    width: 400px;
+}
+
+.v-input{
+    width: 100px;
+    height: 40px;
+}
+
+.v-producto, .v-precio{
+    width: 100px;
+}
+
+.v-producto{
+    color:#169dac;
+}
+
+.v-precio-mute{
+    color: #244256;
+}
+
+.v-precio{
+    color: #8e5fd9;
+}

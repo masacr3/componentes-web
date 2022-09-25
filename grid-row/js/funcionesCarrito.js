@@ -1,5 +1,101 @@
 // package.action{}
 
+function armarProductoPorLi(li, i){
+    var producto = {}
+    producto.cod = "verduleria"+i
+    producto.marca = "verduleria"
+    producto.producto = li.children[0].innerHTML
+    producto.preciopublico = li.children[1].innerHTML
+    producto.descripcion = producto.producto
+    return producto
+}
+
+//modularizacion agregar producto
+function agregarProducto(producto){
+    var ul = document.querySelector(".ventas")
+
+    var li = document.createElement("li")
+    li.setAttribute("data-cod-barras", producto.cod)
+    li.setAttribute("data-precio", producto.preciopublico)
+
+    var dproducto = document.createElement("div")
+    dproducto.classList.add("producto")
+    dproducto.setAttribute("data-producto", producto.producto)
+
+    var dcantidad = document.createElement("div")
+    dcantidad.classList.add("cant")
+
+    var dcantidadvalue = document.createElement("div")
+    dcantidadvalue.classList.add("value")
+    dcantidadvalue.innerHTML = "1"
+
+    var dplaceholdercant = document.createElement("div")
+    dplaceholdercant.classList.add("mute")
+    dplaceholdercant.innerHTML = "cantidad"
+
+    var darticulo =  document.createElement("div")
+    darticulo.classList.add("articulo")
+
+    var dmarca = document.createElement("div")
+    dmarca.classList.add("marca")
+    dmarca.innerHTML = producto.marca
+
+    var ddescripcion = document.createElement("div")
+    ddescripcion.classList.add("descripcion")
+    ddescripcion.classList.add("truncado-articulos")
+    ddescripcion.innerHTML = producto.descripcion 
+
+    var dsubtotal = document.createElement("div")
+    dsubtotal.classList.add("subtotal")
+
+    var dsubtotalvalue = document.createElement("div")
+    dsubtotalvalue.classList.add("value")
+    dsubtotalvalue.innerHTML = producto.preciopublico
+
+    var dplaceholdersubtotal = document.createElement("div")
+    dplaceholdersubtotal.classList.add("mute-der")
+    dplaceholdersubtotal.innerHTML = "subtotal"
+
+    var dborrar = document.createElement("div")
+    dborrar.classList.add("borrar")
+    dborrar.classList.add("no-show")
+
+    var dtitulo = document.createElement("div")
+    dtitulo.classList.add("titulo")
+    dtitulo.innerHTML = "Borrar articulo?"
+
+    var dok = document.createElement("div")
+    dok.classList.add("ok")
+    dok.innerHTML = "Ok"
+
+    var dcancel = document.createElement("div")
+    dcancel.classList.add("cancel")
+    dcancel.innerHTML = "Cancelar"
+
+    //armamos el arbol de dependencias
+
+    dcantidad.appendChild(dcantidadvalue)
+    dcantidad.appendChild(dplaceholdercant)
+    darticulo.appendChild(dmarca)
+    darticulo.appendChild(ddescripcion)
+    dsubtotal.appendChild(dsubtotalvalue)
+    dsubtotal.appendChild(dplaceholdersubtotal)
+    dproducto.appendChild(dcantidad)
+    dproducto.appendChild(darticulo)
+    dproducto.appendChild(dsubtotal)
+    dborrar.appendChild(dtitulo)
+    dborrar.appendChild(dok)
+    dborrar.appendChild(dcancel)
+
+    li.appendChild(dproducto)
+    li.appendChild(dborrar)
+
+    ul.appendChild(li)
+}
+
+
+
+
 //calcula el total del carrito de compras
 function carritoTotal(){
     var lis = document.querySelectorAll("li")
@@ -65,90 +161,11 @@ function carritoAgregarProducto(cod){
         
         if (producto.cod === "0000") return;
 
-        var ul = document.querySelector(".ventas")
-
-        var li = document.createElement("li")
-        li.setAttribute("data-cod-barras", producto.cod)
-        li.setAttribute("data-precio", producto.preciopublico)
-
-        var dproducto = document.createElement("div")
-        dproducto.classList.add("producto")
-        dproducto.setAttribute("data-producto", producto.producto)
-
-        var dcantidad = document.createElement("div")
-        dcantidad.classList.add("cant")
-
-        var dcantidadvalue = document.createElement("div")
-        dcantidadvalue.classList.add("value")
-        dcantidadvalue.innerHTML = "1"
-
-        var dplaceholdercant = document.createElement("div")
-        dplaceholdercant.classList.add("mute")
-        dplaceholdercant.innerHTML = "cantidad"
-
-        var darticulo =  document.createElement("div")
-        darticulo.classList.add("articulo")
-
-        var dmarca = document.createElement("div")
-        dmarca.classList.add("marca")
-        dmarca.innerHTML = producto.marca
-
-        var ddescripcion = document.createElement("div")
-        ddescripcion.classList.add("descripcion")
-        ddescripcion.classList.add("truncado-articulos")
-        ddescripcion.innerHTML = producto.descripcion 
-
-
-        var dsubtotal = document.createElement("div")
-        dsubtotal.classList.add("subtotal")
-
-        var dsubtotalvalue = document.createElement("div")
-        dsubtotalvalue.classList.add("value")
-        dsubtotalvalue.innerHTML = producto.preciopublico
-
-        var dplaceholdersubtotal = document.createElement("div")
-        dplaceholdersubtotal.classList.add("mute-der")
-        dplaceholdersubtotal.innerHTML = "subtotal"
-
-        var dborrar = document.createElement("div")
-        dborrar.classList.add("borrar")
-        dborrar.classList.add("no-show")
-
-        var dtitulo = document.createElement("div")
-        dtitulo.classList.add("titulo")
-        dtitulo.innerHTML = "Borrar articulo?"
-
-        var dok = document.createElement("div")
-        dok.classList.add("ok")
-        dok.innerHTML = "Ok"
-
-        var dcancel = document.createElement("div")
-        dcancel.classList.add("cancel")
-        dcancel.innerHTML = "Cancelar"
-
-        //armamos el arbol de dependencias
-
-        dcantidad.appendChild(dcantidadvalue)
-        dcantidad.appendChild(dplaceholdercant)
-        darticulo.appendChild(dmarca)
-        darticulo.appendChild(ddescripcion)
-        dsubtotal.appendChild(dsubtotalvalue)
-        dsubtotal.appendChild(dplaceholdersubtotal)
-        dproducto.appendChild(dcantidad)
-        dproducto.appendChild(darticulo)
-        dproducto.appendChild(dsubtotal)
-        dborrar.appendChild(dtitulo)
-        dborrar.appendChild(dok)
-        dborrar.appendChild(dcancel)
-
-        li.appendChild(dproducto)
-        li.appendChild(dborrar)
-
-        ul.appendChild(li)
-
+        agregarProducto(producto)
 
         //agrego el scrolling si hay mas de X li en el UL
         if ( document.querySelectorAll("li").length > 5 ){
+            let ul = document.querySelector(".ventas")
             ul.classList.add("scrolling")
         }
 
@@ -171,6 +188,13 @@ function carritoAgregar(cod){
         carritoAgregarProducto(cod)
     }
     carritoTotal()
+}
+
+//agrega productos No indexados 
+//contrato
+// cod, producto, marca, preciopublico, descripcion
+function carritoAgregarNoIndexado(producto){
+    agregarProducto(producto)
 }
 
 

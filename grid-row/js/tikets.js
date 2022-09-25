@@ -1,5 +1,5 @@
 function recoletar_datos(){
-    let lis = document.querySelectorAll("li")
+    let lis = document.querySelectorAll(".ventas li")
 
     let articulos = []
 

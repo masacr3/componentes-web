@@ -18,6 +18,19 @@
     background: transparent;
   }
 
-  #codbarras::placeholder {
+  .kg , .pesos{
+    width: 70px;
+    height: 40px;
+    box-sizing: border-box;
+    font-family: inherit;
+    background: transparent;
+    border-radius: 6px;
+    border: 1px solid #8e5fd9;
+    margin-right: 10px;
+    padding-left: 10px;
+    color: #8e5fd9;
+  }
+
+  #codbarras::placeholder, .kg::placeholder, .pesos::placeholder {
     color: #23327e;
   }
