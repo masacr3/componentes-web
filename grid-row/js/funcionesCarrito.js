@@ -13,6 +13,10 @@ function armarProductoPorLi(li, i){
 //modularizacion agregar producto
 function agregarProducto(producto){
     var ul = document.querySelector(".ventas")
+    var lis = document.querySelectorAll(".ventas li")
+    if( lis.length === 1 && lis[0].getAttribute("data-cod-barras") === "0000" ){
+        lis[0].remove()
+    }
 
     var li = document.createElement("li")
     li.setAttribute("data-cod-barras", producto.cod)
@@ -98,7 +102,7 @@ function agregarProducto(producto){
 
 //calcula el total del carrito de compras
 function carritoTotal(){
-    var lis = document.querySelectorAll("li")
+    var lis = document.querySelectorAll(".ventas li")
 
 
     var total = 0
@@ -181,7 +185,7 @@ function carritoAgregar(cod){
         carritoActualizarProducto(cod, false)
     }
     else{
-        var lis = document.querySelectorAll("li")
+        var lis = document.querySelectorAll(".ventas li")
         if( lis.length === 1 && lis[0].getAttribute("data-cod-barras") === "0000" ){
             lis[0].remove()
         }
@@ -195,6 +199,7 @@ function carritoAgregar(cod){
 // cod, producto, marca, preciopublico, descripcion
 function carritoAgregarNoIndexado(producto){
     agregarProducto(producto)
+    carritoTotal()
 }
 
 
@@ -216,7 +221,7 @@ function carritoQuitar(cod){
     if ( !carritoEstaProducto(cod) ) return;
     
     carritoActualizarProducto(cod, true)
-    var lis = document.querySelectorAll("li")
+    var lis = document.querySelectorAll(".ventas li")
     if( lis.length === 0 ){
         var ul = document.querySelector(".ventas")
         var li = document.createElement("li")

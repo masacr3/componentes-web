@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./styles/totales.css">
     <link rel="stylesheet" href="./styles/menu.css">
     <link rel="stylesheet" href="./styles/scroll.css">
+    <link rel="stylesheet" href="./styles/verduleria.css">
     <title>Ventas</title>
 </head>
 <body>
@@ -39,7 +40,7 @@
                 </div>
             </div>
             <div class="col2">
-                <div class="row">
+                <div class="col">
                     <!-- listo -->
                     <!-- <div class="form__group field">
                         <input type="input" class="form__field" placeholder="Name" name="name" id='codbarras' autocomplete="off" required />
@@ -62,15 +63,39 @@
                 </div>
             </div>
             <div class="col3 no-show">
-                <ul class="verduleria">
-                </ul>
-                <ul class="pedido-verduleria">
-                </ul>
-                <div class="col">
-                    <img src="./img/salida-de-emergencia.png" alt="" class="sticky" data-menu="salirVerduleria">
-                    <img src="./img/anadir-a-la-cesta.png" alt="" data-menu="agregarAVentas">
+                <img src="./img/salida-de-emergencia.png" alt="" class="sticky" data-menu="salirVerduleria">
+                <div class="v-row">
+                    <ul class="verduleria">
+                    </ul>
+                    <ul class="pedido-verduleria">
+                        <li class="no-productos" data-cod-barras="0000">
+                            No hay verduras ni frutas en su pedido
+                        </li>
+                    </ul>
+                    <div class="v-col-menu">
+                        <img class="v-btn-formulario" src="./img/vegan.png" alt="">
+                        <!-- <button class="v-btn-formulario">Cargar fruta o Verdura</button> -->
+                        <img src="./img/anadir-a-la-cesta.png" alt="" data-menu="agregarAVentas">
+                    </div>
+                    <div class="modal cargar no-show">
+                        <div class="cargar-verduleria">
+                            <p class="v-salir">X</p>
+                            <h2> Cargar </h2>
+                            <input type="text" class="v-cargar" placeholder="Fruta o Verdura..">
+                            <input type="text" class="v-cargar" placeholder="Precio por Kg..">
+                            <button class="v-btn-cargar">Crear</button>
+                        </div>
+                    </div>
+                    <div class="modal actualizar no-show">
+                        <div class="actualizar-verduleria">
+                            <p class="v-salir">X</p>
+                            <h2> Actualizar </h2>
+                            <input type="text" class="v-cargar" placeholder="Fruta o Verdura..">
+                            <input type="text" class="v-cargar" placeholder="Precio por Kg..">
+                            <button class="v-btn-actualizar">Crear</button>
+                        </div>
+                    </div>
                 </div>
-                
             </div>
         </div>
     </div>
