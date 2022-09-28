@@ -13,39 +13,23 @@
     <title>Ventas</title>
 </head>
 <body>
-    <!-- <a id="tiket" href="http://192.168.0.9:3000/api-pdf" target="_blank">TOTAL PDF</a> -->
     <div class="container">
         <div class="box">
+            <!-- menu  -->
             <div class="col1">
                 <!-- listo -->
                 <div class="menu">
                     <div class="mask">
                         <div class="mask-container">
                             <img src="./img/frutas.png" alt="" data-menu="frutas">    
-                            <img src="./img/frutason.png" alt="" data-menu="frutason">
+                            <img src="./img/frutason.png" alt="" class="route-verduleria" data-menu="frutason">
                         </div>
                     </div>
-                    <!-- <div class="mask">
-                        <div class="mask-container">
-                            <img src="./img/agregar-paquete-off.png" alt="" data-menu="agregar">    
-                            <img src="./img/agregar-paquete.png" alt="" data-menu="agregarOn">
-                        </div>
-                    </div>
-                    <div class="mask">
-                        <div class="mask-container">
-                            <img src="./img/lista-de-verificacion-off.png" alt="" data-menu="actualizar">    
-                            <img src="./img/lista-de-verificacion.png" alt="" data-menu="actualizarOn">
-                        </div>
-                    </div> -->
                 </div>
             </div>
+            <!-- grid compras -->
             <div class="col2">
                 <div class="col">
-                    <!-- listo -->
-                    <!-- <div class="form__group field">
-                        <input type="input" class="form__field" placeholder="Name" name="name" id='codbarras' autocomplete="off" required />
-                        <label for="name" class="form__label">Cod barras</label>
-                    </div> -->
                     <div class="input">
                         <img src="./img/codigo-de-barras.png" class="img-cod">
                         <input type="text" id="codbarras" placeholder="Cod barras...">    
@@ -62,13 +46,14 @@
                     <div class="total-value"></div>
                 </div>
             </div>
+            <!-- verduleria  -->
             <div class="col3 no-show">
-                <img src="./img/salida-de-emergencia.png" alt="" class="sticky" data-menu="salirVerduleria">
+                <img src="./img/salida-de-emergencia.png" alt="" class="sticky salirVerduleria" data-menu="salirVerduleria">
                 <div class="v-row">
                     <ul class="verduleria">
                     </ul>
                     <ul class="pedido-verduleria">
-                        <li class="no-productos" data-cod-barras="0000">
+                        <li class="no-productos" data-cod="0000">
                             No hay verduras ni frutas en su pedido
                         </li>
                     </ul>
