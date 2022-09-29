@@ -1,4 +1,5 @@
 html, body{
+    margin: 0;
     box-sizing:border-box;
     background-color: #151515;
     font-size: 18px;
@@ -46,16 +47,17 @@ html, body{
 
 .box{
     width: 1200px;
-    height: 650px;
     display: flex;
     flex-direction: row;
     justify-content:space-around;
     align-items: center;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    box-sizing:content-box;
 }
 
 ul{
     list-style: none;
-    height: 360px;
     padding: 0;
     margin: 0;
 }
@@ -211,9 +213,9 @@ li{
 /************ tota ****************/
 
 .sticky{
-    float: left;
-    position: sticky;
+    position: fixed;
     top: 20px;
+    right: 150px;
     margin-bottom: 20px;
 }
 
