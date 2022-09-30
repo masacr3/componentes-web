@@ -14,7 +14,7 @@ function armarProductoPorLi(li, i){
 function agregarProducto(producto){
     var ul = document.querySelector(".ventas")
     var lis = document.querySelectorAll(".ventas li")
-    if( lis.length === 1 && lis[0].getAttribute("data-cod-barras") === "0000" ){
+    if( lis.length === 1 && lis[0].getAttribute("data-cod") === "0000" ){
         lis[0].remove()
     }
 
@@ -97,16 +97,13 @@ function agregarProducto(producto){
     ul.appendChild(li)
 }
 
-
-
-
 //calcula el total del carrito de compras
 function carritoTotal(){
     var lis = document.querySelectorAll(".ventas li")
 
 
     var total = 0
-    if (! (lis.length === 1 && lis[0].getAttribute("data-cod-barras") === "0000") ){
+    if (! (lis.length === 1 && lis[0].getAttribute("data-cod") === "0000") ){
         lis.forEach(item =>{
             var cantSubtotal = item.children.item(0).children.item(2).children.item(0)
             total += parseInt(cantSubtotal.innerHTML)
@@ -116,7 +113,6 @@ function carritoTotal(){
     document.querySelector(".total-value").innerHTML = "$ " + total
 }
 
-
 //verifica si el articulo esta en el carrito
 function carritoEstaProducto(cod){
     var lis = document.querySelectorAll("li")
@@ -124,7 +120,7 @@ function carritoEstaProducto(cod){
 
     var ok = false
     lis.forEach(item =>{
-        var codigoBarras = item.getAttribute("data-cod-barras")
+        var codigoBarras = item.getAttribute("data-cod")
         if(codigoBarras === cod){
             ok = true
         }
@@ -132,13 +128,12 @@ function carritoEstaProducto(cod){
     return ok
 }
 
-
 //modifica el articulo en el carrito
 // en el caso de quitar el elemento si la cantidad es 0 lo quita del carrito
 function carritoActualizarProducto(cod, quitar){
     var item = null
     document.querySelectorAll("li").forEach(it =>{
-        if ( it.getAttribute("data-cod-barras") === cod) item = it
+        if ( it.getAttribute("data-cod") === cod) item = it
     })
     
     var precio = item.getAttribute("data-precio")
@@ -178,7 +173,6 @@ function carritoAgregarProducto(cod){
 }
 
 //wrappers
-
 function carritoAgregar(cod){
 
     if ( carritoEstaProducto(cod) === true ){
@@ -186,7 +180,7 @@ function carritoAgregar(cod){
     }
     else{
         var lis = document.querySelectorAll(".ventas li")
-        if( lis.length === 1 && lis[0].getAttribute("data-cod-barras") === "0000" ){
+        if( lis.length === 1 && lis[0].getAttribute("data-cod") === "0000" ){
             lis[0].remove()
         }
         carritoAgregarProducto(cod)
@@ -202,18 +196,9 @@ function carritoAgregarNoIndexado(producto){
     carritoTotal()
 }
 
-
 function carritoVaciar(){
-    var ul = document.querySelector(".ventas")
-    var li = document.createElement("li")
-
-    ul.innerHTML = ""
-
-    li.setAttribute("data-cod-barras", "0000")
-    li.classList.add("no-productos")
-    li.innerHTML = "No hay articulos en su carrito"
-
-    ul.appendChild(li)
+    var { ulVentas } = contenedoresUlVenta()
+    liVacio( ulVentas )
     carritoTotal()
 }
 
@@ -226,7 +211,7 @@ function carritoQuitar(cod){
         var ul = document.querySelector(".ventas")
         var li = document.createElement("li")
 
-        li.setAttribute("data-cod-barras", "0000")
+        li.setAttribute("data-cod", "0000")
         li.classList.add("no-productos")
         li.innerHTML = "No hay articulos en su carrito"
 
