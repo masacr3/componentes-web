@@ -19,8 +19,7 @@ function liVacio(ul, mensaje){
 }
 
 // verifica si esta el cod en UL
-function liEstaCod(ul, li){
-    var cod = li.getAttribute("data-cod")
+function liEstaCod(ul, cod){
     var esta = false
     
     Array.from(ul.children).forEach(item=>{
@@ -99,13 +98,14 @@ function listaEventos(){
         return { li , dproducto , dprecio, kg, pesos, dcontenedor }
     }
 
-    function verduleriaPedidoLi(ulpedido, dproducto, pesos, kg){
+    function verduleriaPedidoLi(ulpedido, dproducto, pesos, kg,cod){
         var lis = document.querySelectorAll(".pedido-verduleria li")
         if( lis.length === 1 && lis[0].getAttribute("data-cod") === "0000" ){    
             lis[0].remove()
         }
         var lipedido = document.createElement("li")
         lipedido.classList.add("v-li")
+        lipedido.setAttribute("data-cod",cod)
         var dproductopedido = document.createElement("div") 
         var dvaluepedido = document.createElement("div")
         var bton = document.createElement("button")   
@@ -296,7 +296,11 @@ function listaEventos(){
                             if (pesos.value === ""){
                                 return
                             }
-                            var { lipedido , bton, dcontenedor, dvaluepedido } = verduleriaPedidoLi(ulpedido, dproducto, pesos, false)
+                            var cod = li.getAttribute("data-cod")
+                            if( liEstaCod(ulpedido,cod)){
+                                return
+                            }
+                            var { lipedido , bton, dcontenedor, dvaluepedido } = verduleriaPedidoLi(ulpedido, dproducto, pesos, false,cod)
                             
                             bton.addEventListener("click",e=>{
                                 ulpedido.removeChild(lipedido)
@@ -333,7 +337,11 @@ function listaEventos(){
                             }
                             var precioKG = parseInt(li.getAttribute("data-precio"))
                             var subtotal = Math.trunc( parseFloat(kg.value) * precioKG )
-                            var { lipedido , bton, dcontenedor, dvaluepedido } = verduleriaPedidoLi(ulpedido, dproducto, subtotal, true)
+                            var cod = li.getAttribute("data-cod")
+                            if( liEstaCod(ulpedido,cod)){
+                                return
+                            }
+                            var { lipedido , bton, dcontenedor, dvaluepedido } = verduleriaPedidoLi(ulpedido, dproducto, subtotal, true,cod)
                             
                             bton.addEventListener("click",e=>{
                                 ulpedido.removeChild(lipedido)
@@ -523,7 +531,11 @@ function listaEventos(){
                             if (pesos.value === ""){
                                 return
                             }
-                            var { lipedido , bton, dcontenedor, dvaluepedido } = verduleriaPedidoLi(ulpedido, dproducto, pesos, false)
+                            var cod = li.getAttribute("data-cod")
+                            if( liEstaCod(ulpedido,cod)){
+                                return
+                            }
+                            var { lipedido , bton, dcontenedor, dvaluepedido } = verduleriaPedidoLi(ulpedido, dproducto, pesos, false,cod)
                             
                             bton.addEventListener("click",e=>{
                                 ulpedido.removeChild(lipedido)
@@ -560,7 +572,11 @@ function listaEventos(){
                             }
                             var precioKG = parseInt(li.getAttribute("data-precio"))
                             var subtotal = Math.trunc( parseFloat(kg.value) * precioKG )
-                            var { lipedido , bton, dcontenedor, dvaluepedido } = verduleriaPedidoLi(ulpedido, dproducto, subtotal, true)
+                            var cod = li.getAttribute("data-cod")
+                            if( liEstaCod(ulpedido,cod)){
+                                return
+                            }
+                            var { lipedido , bton, dcontenedor, dvaluepedido } = verduleriaPedidoLi(ulpedido, dproducto, subtotal, true,cod)
                             
 
                             bton.addEventListener("click",e=>{

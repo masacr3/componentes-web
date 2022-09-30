@@ -220,3 +220,11 @@ li{
     margin-bottom: 20px;
 }
 
+.col-nav{
+    width: 100px;
+    height: 100vh;
+    position:fixed;
+    top: 20px;
+
+}
+
