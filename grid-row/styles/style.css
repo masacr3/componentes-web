@@ -1,7 +1,7 @@
 html, body{
     margin: 0;
     box-sizing:border-box;
-    background-color: #151515;
+    background-color: #6c6c6c;
     font-size: 18px;
     color: #6c6c6c;
     user-select: none;
@@ -17,7 +17,6 @@ html, body{
 }
 
 .col{
-    height: 475px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -54,6 +53,7 @@ html, body{
     padding-top: 50px;
     padding-bottom: 20px;
     box-sizing:content-box;
+    background-color: #151515;
 }
 
 ul{
@@ -222,9 +222,9 @@ li{
 
 .col-nav{
     width: 100px;
-    height: 100vh;
-    position:fixed;
-    top: 20px;
+    height: 500px;
+    position:sticky;
+    top: 70px;
 
 }
 

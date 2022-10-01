@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/test.css">
+    <title>VENTAS</title>
+</head>
+<body>
+    <div class="container">
+        <div class="col">
+            <div class="box">
+                <div class="col1">
+                    <header>
+                            VENTAS
+                    </header>
+                    <div class="card">
+                        <input type="text" class="cod-input" placeholder="Cod barras">
+                        <div class="row centrar-evenly">
+                            <img src="./img/dolar.png" alt="">
+                            <div class="total">
+                                $<span class="value">12000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col2">
+                    <ul class="ventas">
+                        <li class="no-productos" data-cod="0000">
+                            No hay articulos en su carrito
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function agregarProducto(producto){
+            var ul = document.querySelector(".ventas")
+            var lis = document.querySelectorAll(".ventas li")
+                if( lis.length === 1 && lis[0].getAttribute("data-cod") === "0000" ){
+                    lis[0].remove()
+                }
+
+            var li = document.createElement("li")
+            li.setAttribute("data-cod-barras", producto.cod)
+            li.setAttribute("data-precio", producto.preciopublico)
+
+            var dproducto = document.createElement("div")
+            dproducto.classList.add("producto")
+            dproducto.setAttribute("data-producto", producto.producto)
+
+            var dcantidad = document.createElement("div")
+            dcantidad.classList.add("cant")
+
+            var dcantidadvalue = document.createElement("div")
+            dcantidadvalue.classList.add("value")
+            dcantidadvalue.innerHTML = "1"
+
+            var dplaceholdercant = document.createElement("div")
+            dplaceholdercant.classList.add("mute")
+            dplaceholdercant.innerHTML = "cantidad"
+
+            var darticulo =  document.createElement("div")
+            darticulo.classList.add("articulo")
+
+            var dmarca = document.createElement("div")
+            dmarca.classList.add("marca")
+            dmarca.innerHTML = producto.marca
+
+            var ddescripcion = document.createElement("div")
+            ddescripcion.classList.add("descripcion")
+            ddescripcion.classList.add("truncado-articulos")
+            ddescripcion.innerHTML = producto.descripcion 
+
+            var dsubtotal = document.createElement("div")
+            dsubtotal.classList.add("subtotal")
+
+            var dsubtotalvalue = document.createElement("div")
+            dsubtotalvalue.classList.add("value")
+            dsubtotalvalue.innerHTML = producto.preciopublico
+
+            var dplaceholdersubtotal = document.createElement("div")
+            dplaceholdersubtotal.classList.add("mute-der")
+            dplaceholdersubtotal.innerHTML = "subtotal"
+
+            var deliminar = document.createElement("div")
+            deliminar.classList.add("eliminar")
+
+            var bton = document.createElement("button")
+            bton.innerHTML = "Eliminar"
+            bton.addEventListener("click",e=>{
+                ul.removeChild(li)
+            })
+
+
+
+            //armamos el arbol de dependencias
+            deliminar.appendChild(bton)
+            dcantidad.appendChild(dcantidadvalue)
+            dcantidad.appendChild(dplaceholdercant)
+            darticulo.appendChild(dmarca)
+            darticulo.appendChild(ddescripcion)
+            dsubtotal.appendChild(dsubtotalvalue)
+            dsubtotal.appendChild(dplaceholdersubtotal)
+            dproducto.appendChild(dcantidad)
+            dproducto.appendChild(darticulo)
+            dproducto.appendChild(dsubtotal)
+            dproducto.appendChild(deliminar)
+
+            li.appendChild(dproducto)
+
+            ul.appendChild(li)
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            var producto = {
+                cod : "1234",
+                preciopublico : "12",
+                producto : "gaseosa",
+                marca : "coca cola",
+                descripcion : "2.25l"
+            }
+
+            agregarProducto(producto)
+            agregarProducto(producto)
+            agregarProducto(producto)
+            agregarProducto(producto)
+            agregarProducto(producto)
+            agregarProducto(producto)
+            agregarProducto(producto)
+           
+            
+        })
+    </script>
+</body>
+</html>

@@ -163,10 +163,10 @@ function carritoAgregarProducto(cod){
         agregarProducto(producto)
 
         //agrego el scrolling si hay mas de X li en el UL
-        if ( document.querySelectorAll("li").length > 5 ){
-            let ul = document.querySelector(".ventas")
-            ul.classList.add("scrolling")
-        }
+        // if ( document.querySelectorAll("li").length > 5 ){
+        //     let ul = document.querySelector(".ventas")
+        //     ul.classList.add("scrolling")
+        // }
 
         carritoTotal()
     })
